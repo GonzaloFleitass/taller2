@@ -31,13 +31,12 @@ public class Servidor {
             // Verificar si el RMI Registry ya está activo
             try {
                 LocateRegistry.createRegistry(puerto);
-                System.out.println("RMI Registry iniciado en el puerto " + puerto);
+                System.out.println("RMI  iniciado en el puerto " + puerto);
             } catch (RemoteException e) {
                 System.out.println("El puerto " + puerto + " ya está en uso. Verificando...");
             }
 
-            // Configuración del hostname para evitar problemas en algunas redes
-            System.setProperty("java.rmi.server.hostname", "localhost");
+       
 
             // Instanciar fachada
             fachada fach = new fachada();
