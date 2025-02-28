@@ -28,6 +28,9 @@ public class Paseos implements Serializable {
         return Paseos;
     }
 
+    public boolean member(String codigo) {
+    	return Paseos.containsKey(codigo);
+    }
     
 
     // Método que lista los paseos asignados a un destino específico

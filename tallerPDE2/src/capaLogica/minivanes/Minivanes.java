@@ -27,7 +27,9 @@ public class Minivanes implements Serializable {
     }
 
    
-    
+    public boolean member(String matricula) {
+    	return Minivanes.containsKey(matricula);
+    }
     // Método para insertar una nueva minivan en el TreeMap
     public void insert(Minivan minivan)  {
        

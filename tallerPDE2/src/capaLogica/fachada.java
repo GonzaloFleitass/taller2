@@ -41,7 +41,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	   
 
 	        // Verificamos si ya existe una minivan con la matrícula dada
-	        if (minivanes.find(matricula) != null) {
+	        if (minivanes.member(matricula) == true) {
 	        	monitor.terminoEscritura();
 	            throw new miniVanException("Error - Ya existe la minivan");
 	        }
@@ -113,7 +113,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	@Override
 	public  void listarPaseosPorMinivan(String matri) throws miniVanException,RemoteException {
 		monitor.comienzoLectura();
-		if(minivanes.find(matri)==null) {
+		if(minivanes.member(matri)==true) {
 			monitor.terminoLectura();
 			throw new miniVanException("Error- no existe minivan con esa matricula");
 		}
@@ -188,11 +188,12 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	@Override
 	public LinkedList<VOBoleto> listarBoletosPorPaseo(String codigo, char tipoBoleto)throws paseoException,RemoteException{
 		monitor.comienzoLectura();
-		Paseo a = paseos.find(codigo); 
-		if(a==null) {
+		
+		if(paseos.member(codigo)==false) {
 			monitor.terminoLectura();
 			throw new paseoException("Error- no existe paseo"); 
 		}
+		Paseo a = paseos.find(codigo); 
 		  monitor.terminoLectura();
 			return a.getBoletos().listarBoletosPorPaseo(codigo, tipoBoleto, paseos);
 			
@@ -202,7 +203,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	@Override
 	public double montoRecaudado(String cod)throws paseoException,RemoteException {
 		monitor.comienzoLectura();
-		if(paseos.find(cod) == null){
+		if(paseos.member(cod)==false){
 			  monitor.terminoLectura();
 			throw new paseoException("Error, No existe paseo");
 		}
