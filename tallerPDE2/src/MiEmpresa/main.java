@@ -1,6 +1,7 @@
 package MiEmpresa;
 
 import capaLogica.Ifachada;
+
 import capaLogica.fachada;
 import capaLogica.destinos.*;
 import capaLogica.minivanes.*;
@@ -13,7 +14,7 @@ import java.util.LinkedList;
 
 public class main {
 
-    public static void main(String[] args) throws miniVanException, paseoException, boletoException, RemoteException {
+    public static void main(String[] args) throws miniVanException, paseoException, boletoException, RemoteException, InterruptedException {
         // Inicialización de las colecciones
         Minivanes minivanes = new Minivanes();
         Paseos paseos = new Paseos();
