@@ -25,7 +25,7 @@ public interface Ifachada extends Remote{
 	void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec) throws paseoException,RemoteException;
 
 	//OPCION 1- MUESTRA EN PANTALLA TODOS LOS PASEOS SEGUN UNA MINIVAN
-	void listarPaseosPorMinivan(String matri) throws miniVanException,RemoteException;
+	LinkedList<VOPaseo> listarPaseosPorMinivan(String matri) throws miniVanException,RemoteException;
 
 	LinkedList<VOPaseo> listarPaseosPorDestinos(Destino destino) throws paseoException,RemoteException;
 

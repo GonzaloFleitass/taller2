@@ -28,7 +28,7 @@ public class Servidor {
         try {
             int puerto = 1099;
 
-            // Verificar si el RMI Registry ya está activo
+            // Verificar si el RMI ya está activo
             try {
                 LocateRegistry.createRegistry(puerto);
                 System.out.println("RMI  iniciado en el puerto " + puerto);

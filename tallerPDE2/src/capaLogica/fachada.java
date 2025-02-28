@@ -60,11 +60,9 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	        monitor.terminoEscritura();
 	}
 
-	
-	
 	//Lista las minivanes
 		@Override
-		public void listadoMinivanes() throws RemoteException{
+	public void listadoMinivanes() throws RemoteException{
 			monitor.comienzoLectura();
 			LinkedList<VoMinivan> VOminivanes = minivanes.listarMinivanes();
 			Iterator<VoMinivan> iterador = VOminivanes.iterator();
@@ -73,8 +71,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 			}
 			monitor.terminoLectura();
 		}
-		
-    	
+		 	
 	@Override
 	public void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec) throws paseoException,RemoteException {
 		monitor.comienzoEscritura();
@@ -104,28 +101,17 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		
 	}
 	
-	
-	
-	
-	//ESTA SON LAS DOS FORMAS QUE ENCONTRE PARA USAR LOS VALUE OBJET, PREGUNTAR AL PROFE CUAL SE USA
-	
-	//OPCION 1- MUESTRA EN PANTALLA TODOS LOS PASEOS SEGUN UNA MINIVAN
 	@Override
-	public  void listarPaseosPorMinivan(String matri) throws miniVanException,RemoteException {
+	public  LinkedList<VOPaseo> listarPaseosPorMinivan(String matri) throws miniVanException,RemoteException {
+		
 		monitor.comienzoLectura();
 		if(minivanes.member(matri)==true) {
 			monitor.terminoLectura();
 			throw new miniVanException("Error- no existe minivan con esa matricula");
 		}
-		 LinkedList<VOPaseo> paseos = minivanes.listarPaseosPorMinivan(matri);
-		 Iterator<VOPaseo> iterador = paseos.iterator();
-		 
-		 while(iterador.hasNext()) {
-			 iterador.next().printVOPaseo();
-		 }
 		 monitor.terminoLectura();
+		 return minivanes.listarPaseosPorMinivan(matri);
 	}
-	
 	
 	@Override
 	public LinkedList<VOPaseo> listarPaseosPorDestinos(Destino destino) throws paseoException,RemoteException{
@@ -139,9 +125,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	
 		
 	}
-	
-	
-	
+		
 	//OPCION 2- RETORONA LA LISTA VOPASEOS SEGUN UNA CANTIDAD DE BOLETOS
  	@Override
 	public LinkedList<VOPaseo> listarPaseosDispBoletos(int cantBol) throws boletoException, RemoteException {
@@ -154,8 +138,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		return paseos.listadoPaseosDispoBoletos(cantBol, minivanes);
 		
 	}
-	
-	
+		
 	//INGRESA BOLETO A LA COLECCION DE BOLETOS DEL PASEO PASADO POR EL USUARIO
 	@Override
 	public void ventaBoleto(String codigoBol, String nombre, int edad, int celu, String codigoPas,double descuento,boolean comun)throws paseoException,RemoteException {
@@ -183,8 +166,6 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	}
 	}
 	
-	
-	
 	@Override
 	public LinkedList<VOBoleto> listarBoletosPorPaseo(String codigo, char tipoBoleto)throws paseoException,RemoteException{
 		monitor.comienzoLectura();
@@ -210,9 +191,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		  monitor.terminoLectura();
 		return paseos.montoRecuadadoPaseo(cod);
 	}
-	
-	
-	
+
 	 @Override
 	public void respaldar(String nomArch) throws PersistenciaException,RemoteException {
 		 monitor.comienzoLectura();
