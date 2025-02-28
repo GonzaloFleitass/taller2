@@ -13,8 +13,8 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 
+import capaLogica.fachada;
 import capaLogica.Ifachada;
-import capaLogica.fachada; // Asegúrate de importar la clase correcta
 import capaLogica.destinos.*;
 
 
@@ -23,7 +23,7 @@ public class VentanaIngresoDestino extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField textField;
-    private Ifachada Fachada; // Instancia de Fachada
+    private Ifachada Fachada; 
 
     /**
      * Launch the application.
