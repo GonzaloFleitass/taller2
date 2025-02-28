@@ -8,6 +8,8 @@ public class Destino implements Serializable{
 	public Destino(String nomb)
 	{ nombre = nomb;}
 	
+	
+	//da el nombre
 	public String getNombre() {
 		return nombre;
 	}
