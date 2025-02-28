@@ -86,6 +86,7 @@ public class Minivanes implements Serializable {
 }
 
 
+
 /* Falta implementar: findMinivanDisponible(horaPartida, horaRegreso):Minivan
  member(String):boolean
  memberMinivanDisponible(horaPartida,horaRegreso):bool*/

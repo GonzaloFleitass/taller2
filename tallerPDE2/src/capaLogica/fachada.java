@@ -78,7 +78,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	@Override
 	public void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec) throws paseoException,RemoteException {
 		monitor.comienzoEscritura();
-		if(paseos.find(cod)!=null) {
+		if(paseos.member(cod)==true) {
 			 monitor.terminoEscritura();
 			throw new paseoException ("Error - ya existe ese codigo de paseo");
 			
