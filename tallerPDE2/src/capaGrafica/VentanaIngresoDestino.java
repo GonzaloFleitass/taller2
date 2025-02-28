@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import capaLogica.fachada;
 import capaLogica.Ifachada;
 import capaLogica.destinos.*;
+import javax.swing.UIManager;
 
 
 public class VentanaIngresoDestino extends JFrame {
@@ -48,20 +49,21 @@ public class VentanaIngresoDestino extends JFrame {
     public VentanaIngresoDestino() throws RemoteException {
         Fachada = new fachada(); 
 
-        setTitle("DESTINO");
+        setTitle("INGRESO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
+        contentPane.setBackground(UIManager.getColor("Menu.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Nombre");
-        lblNewLabel.setBounds(179, 74, 61, 16);
+        lblNewLabel.setBounds(200, 72, 61, 16);
         contentPane.add(lblNewLabel);
 
         textField = new JTextField();
-        textField.setBounds(144, 102, 130, 26);
+        textField.setBounds(159, 100, 130, 26);
         contentPane.add(textField);
         textField.setColumns(10);
 
@@ -83,11 +85,15 @@ public class VentanaIngresoDestino extends JFrame {
                 }
             }
         });
-        Ingresar.setBounds(144, 140, 130, 29);
+        Ingresar.setBounds(70, 188, 130, 29);
         contentPane.add(Ingresar);
 
-        JButton Volver = new JButton("Volver");
-        Volver.setBounds(6, 6, 117, 29);
+        JButton Volver = new JButton("Cancelar");
+        Volver.setBounds(245, 188, 117, 29);
         contentPane.add(Volver);
+        
+        JLabel lblNewLabel_1 = new JLabel("Ingresar destino");
+        lblNewLabel_1.setBounds(172, 34, 102, 16);
+        contentPane.add(lblNewLabel_1);
     }
 }
