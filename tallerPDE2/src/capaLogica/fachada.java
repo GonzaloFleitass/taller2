@@ -28,7 +28,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	
 	
 	public fachada() throws RemoteException{
-		// TODO Auto-generated constructor stubbs
+		// TODO Auto-generated constructor stubbsnb
 		paseos = new Paseos();
 		minivanes = new Minivanes();
 		monitor = new Monitor();
