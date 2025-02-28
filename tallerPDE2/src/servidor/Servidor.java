@@ -17,6 +17,7 @@ public class Servidor {
 	// instancio mi Objeto Remoto y lo publico
 	fachada f= new fachada();
 	
+	
 	System.out.println ("Antes de publicarlo");
 	Naming.rebind("//localhost:1099/fachada", f);
 	System.out.println ("Luego de publicarlo");
