@@ -1,12 +1,13 @@
-package capaLogica.minivanes;
+package capaLogica.destinos;
 
-public class miniVanException extends Exception {
+public class DestinoException extends Exception {
+
 
 	private String mensaje;
 
 	// Constructor con mensaje personalizado
-	public miniVanException(String mens) {
-		this.mensaje = mens;
+	public DestinoException(String mens) {
+		super(mens);
 	}
 
 	public static String darMensaje(String mensaje) {

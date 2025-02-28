@@ -7,18 +7,18 @@ import capaLogica.destinos.*;
 import capaLogica.boletos.*;
 
 public class VOPaseo implements Serializable {
-    
-  
-	private String codigo;           
-	private Destino destino;         
-	private LocalTime horaPartida;   
-	private LocalTime horaLlegada;  
-	private double precioBase;       
-	private int cantMaximaBoletos; 
-	private int cantBolDisp;         
-	
+
+	private String codigo;
+	private Destino destino;
+	private LocalTime horaPartida;
+	private LocalTime horaLlegada;
+	private double precioBase;
+	private int cantMaximaBoletos;
+	private int cantBolDisp;
+
 	// Constructor que inicializa todos los atributos
-	public VOPaseo(String cod, Destino des, LocalTime hsPart, LocalTime hsLleg, double precioBa, int cantMaxBol, int cantBolDis) {
+	public VOPaseo(String cod, Destino des, LocalTime hsPart, LocalTime hsLleg, double precioBa, int cantMaxBol,
+			int cantBolDis) {
 		codigo = cod;
 		destino = des;
 		horaPartida = hsPart;
@@ -28,7 +28,7 @@ public class VOPaseo implements Serializable {
 		cantBolDisp = cantBolDis;
 	}
 
-    // Métodos getters para obtener los valores de los atributos
+	// Métodos getters para obtener los valores de los atributos
 	public String getCodigo() {
 		return codigo;
 	}
@@ -57,15 +57,11 @@ public class VOPaseo implements Serializable {
 		return cantBolDisp;
 	}
 
-    // Método que imprime la información completa del paseo
+	// Método que imprime la información completa del paseo
 	public void printVOPaseo() {
-	    System.out.println("Codigo: " + codigo + "\n" +
-	                       "Destino: " + destino + "\n" +
-	                       "Hora de Partida: " + horaPartida + "\n" +
-	                       "Hora de Llegada: " + horaLlegada + "\n" +
-	                       "Precio Base: " + precioBase + "\n" +
-	                       "Cantidad maxima de boletos: " + cantMaximaBoletos + "\n" +
-	                       "Boletos Disponibles: " + cantBolDisp); 
+		System.out.println("Codigo: " + codigo + "\n" + "Destino: " + destino + "\n" + "Hora de Partida: " + horaPartida
+				+ "\n" + "Hora de Llegada: " + horaLlegada + "\n" + "Precio Base: " + precioBase + "\n"
+				+ "Cantidad maxima de boletos: " + cantMaximaBoletos + "\n" + "Boletos Disponibles: " + cantBolDisp);
 
 	}
 }

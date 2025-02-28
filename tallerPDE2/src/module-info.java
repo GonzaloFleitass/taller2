@@ -6,9 +6,9 @@
  *
  */
 
-
 module main {
-    requires java.desktop;
-    requires java.rmi;
-    exports capaLogica to java.rmi;
+	requires java.desktop;
+	requires java.rmi;
+
+	exports capaLogica to java.rmi;
 }
