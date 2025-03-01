@@ -91,20 +91,16 @@ public class Servidor {
 				paseo.printVOPaseo();
 			}
 
-			/*
-			 * Vender boletos NO LO PUDE HACER ANDAR
-			 * System.out.println("\n=== Venta de Boletos ==="); fach.ventaBoleto("MLNP14",
-			 * "Carlos", 30, 4021, "MLNP12", 0, true); // Boleto común
-			 * fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "MLNP12", 14, false); // Boleto
-			 * especial
-			 * 
-			 * // Mostrar monto recaudado por paseo NO LO PUDE HACER ANDAR
-			 * System.out.println("\n=== Monto Recaudado por Paseo ===");
-			 * System.out.println("Monto recaudado para el paseo MLNP12: " +
-			 * fach.montoRecaudado("MLNP12"));
-			 * System.out.println("Monto recaudado para el paseo 1112: " +
-			 * fach.montoRecaudado("1112"));
-			 */
+			
+			 
+			 System.out.println("\n=== Venta de Boletos ==="); 
+			 fach.ventaBoleto("MLNP14","Carlos", 30, 4021, "2224", 0, true); 
+			 fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "2224", 14, false);
+			
+			 System.out.println("\n=== Monto Recaudado por Paseo ===");
+			 System.out.println("Monto recaudado para el paseo 2224: " +
+			 fach.montoRecaudado("2224"));
+			 
 			// Publicarlooo
 			System.out.println("\nPublicando fachada en RMI...");
 			Naming.rebind("//localhost:" + puerto + "/fachada", fach);

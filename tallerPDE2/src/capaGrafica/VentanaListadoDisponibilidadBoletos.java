@@ -9,10 +9,9 @@ import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JList;
 import javax.swing.JTable;
 
-public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
+public class VentanaListadoDisponibilidadBoletos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -26,7 +25,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaListadoPaseosAsignadosMinivan frame = new VentanaListadoPaseosAsignadosMinivan();
+					VentanaListadoDisponibilidadBoletos frame = new VentanaListadoDisponibilidadBoletos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,41 +37,35 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaListadoPaseosAsignadosMinivan() {
-		setTitle("LISTADO");
+	public VentanaListadoDisponibilidadBoletos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(UIManager.getColor("List.background"));
+		contentPane.setBackground(UIManager.getColor("Menu.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Matricula");
-		lblNewLabel.setBounds(78, 42, 61, 16);
+		JLabel lblNewLabel = new JLabel("Cantidad de boletos");
+		lblNewLabel.setBounds(6, 47, 168, 16);
 		contentPane.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setBounds(151, 37, 130, 26);
+		textField.setBounds(154, 42, 130, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(293, 37, 117, 29);
+		btnNewButton.setBounds(307, 42, 117, 29);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("Listado de paseos por minivan ");
-		lblNewLabel_1.setBounds(129, 6, 204, 16);
-		contentPane.add(lblNewLabel_1);
+		table = new JTable();
+		table.setBounds(6, 76, 438, 190);
+		contentPane.add(table);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setBounds(0, 1, 117, 29);
+		btnNewButton_1.setBounds(6, 0, 117, 29);
 		contentPane.add(btnNewButton_1);
-		
-		table = new JTable();
-		table.setBounds(23, 76, 406, 190);
-		contentPane.add(table);
 	}
-
 }

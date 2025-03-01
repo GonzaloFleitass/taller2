@@ -66,5 +66,9 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
 		table = new JTable();
 		table.setBounds(20, 71, 395, 195);
 		contentPane.add(table);
+		
+		JLabel lblNewLabel_1 = new JLabel("Listado de paseos por destino");
+		lblNewLabel_1.setBounds(135, 5, 215, 16);
+		contentPane.add(lblNewLabel_1);
 	}
 }
