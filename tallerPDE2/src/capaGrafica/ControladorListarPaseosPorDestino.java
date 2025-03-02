@@ -2,6 +2,9 @@ package capaGrafica;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
+
+import capaLogica.paseos.VOPaseo;
 import capaLogica.paseos.paseoException;
 import capaLogica.Ifachada;
 import capaLogica.destinos.Destino;
@@ -25,15 +28,15 @@ public class ControladorListarPaseosPorDestino{
 		    }
 
 	
-public void ListarPasPorDestino(Destino dest)throws RemoteException,paseoException{
+public LinkedList <VOPaseo> ListarPasPorDestino(Destino dest)throws RemoteException,paseoException{
 	try {
     	
-        fach.listarPaseosPorDestinos(dest);
+       return  fach.listarPaseosPorDestinos(dest);
         
        
     } catch (Exception e) {
         e.printStackTrace();
-
+        return new LinkedList<>();  // Devuelve una lista vacía en caso de error
     	}
 	}
 }

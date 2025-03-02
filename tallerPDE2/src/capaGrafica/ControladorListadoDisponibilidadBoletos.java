@@ -3,9 +3,11 @@ package capaGrafica;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.time.LocalTime;
+import java.util.LinkedList;
 
 import capaLogica.Ifachada;
 import capaLogica.boletos.boletoException;
+import capaLogica.paseos.VOPaseo;
 
 public class ControladorListadoDisponibilidadBoletos {
 
@@ -25,15 +27,15 @@ public class ControladorListadoDisponibilidadBoletos {
 		    }
 
 	
-public void ListarPasDisBol(char cantBol)throws RemoteException,boletoException{
+public LinkedList<VOPaseo> ListarPasDisBol(char cantBol)throws RemoteException,boletoException{
 	try {
     	
-        fach.listarPaseosDispBoletos(cantBol);
+        return fach.listarPaseosDispBoletos(cantBol);
         
        
     } catch (Exception e) {
         e.printStackTrace();
-
+        return new LinkedList<>();  // Devuelve una lista vacía en caso de error
     	}
 	}
 }

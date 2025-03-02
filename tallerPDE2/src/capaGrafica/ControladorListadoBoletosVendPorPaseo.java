@@ -2,12 +2,12 @@ package capaGrafica;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.time.LocalTime;
+import java.util.LinkedList;
 
 import capaLogica.Ifachada;
-import capaLogica.destinos.Destino;
+import capaLogica.boletos.VOBoleto;
 import capaLogica.paseos.paseoException;
-import capaLogica.paseos.Paseos;
+
 
 public class ControladorListadoBoletosVendPorPaseo {
 
@@ -27,15 +27,17 @@ public class ControladorListadoBoletosVendPorPaseo {
 		    }
 
 	
-public void ListarBolVenPas(String codigo, char tipoBoleto)throws RemoteException,paseoException{
+public LinkedList<VOBoleto> ListarBolVenPas(String codigo, char tipoBoleto)throws RemoteException,paseoException{
 	try {
     	
-        fach.listarBoletosPorPaseo(codigo, tipoBoleto);
+      return  fach.listarBoletosPorPaseo(codigo, tipoBoleto);
         
        
     } catch (Exception e) {
         e.printStackTrace();
-
+        return new LinkedList<>();  // Devuelve una lista vacía en caso de error
     	}
+
 	}
+
 }

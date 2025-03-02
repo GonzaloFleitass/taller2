@@ -2,8 +2,10 @@ package capaGrafica;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 
 import capaLogica.Ifachada;
+import capaLogica.minivanes.VoMinivan;
 
 
 public class ControladorListadoMinivanes {
@@ -24,15 +26,15 @@ public class ControladorListadoMinivanes {
 		    }
 
 	
-public void ListarPasDisBol(char cantBol)throws RemoteException{
+public LinkedList<VoMinivan> ListarMini()throws RemoteException{
 	try {
     	
-        fach.listadoMinivanes();
+        return fach.listadoMinivanes();
         
        
     } catch (Exception e) {
         e.printStackTrace();
-
+        return new LinkedList<>();  // Devuelve una lista vacía en caso de error
     	}
 	}
 }
