@@ -85,6 +85,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 				Boletos bol = new Boletos(mini.getcantAsientos());
 				Paseo pas = new Paseo(cod, dest, hpart, hllega, prec, mini.getMatricula(), bol);
 				paseos.insertPaseo(pas);
+				mini.getPaseosAsignados().insertPaseo(pas);
 				monitor.terminoEscritura();
 			}
 

@@ -12,11 +12,7 @@ import capaLogica.destinos.Destino;
 import capaLogica.destinos.DestinoException;
 import capaLogica.minivanes.VoMinivan;
 import capaLogica.minivanes.miniVanException;
-import capaLogica.boletos.Boleto;
-import capaLogica.boletos.Boletos;
 import capaLogica.boletos.boletoException;
-import capaLogica.paseos.Paseo;
-import capaLogica.paseos.Paseos;
 import capaLogica.paseos.VOPaseo;
 import capaLogica.paseos.paseoException;
 
@@ -29,33 +25,14 @@ public class Cliente {
             // Insertar destinos
             fach.insertDestino("Punta Del Este");
             fach.insertDestino("Piriapolis");
-        	Boletos boletos1 = new Boletos(10);
-    		Boleto bol1 = new Boleto(1, "Migue", 10, 02021, "MLNP12");
-    		Boleto bol2 = new Boleto(2, "Antonio", 25, 03021, "MLNP12");
-    		boletos1.insert(bol1);
-    		boletos1.insert(bol2);
 
-    		// Crear boletos para el segundo paseo
-    		Boletos boletos2 = new Boletos(10);
-    		Boleto bol3 = new Boleto(1, "Carlos", 30, 04021, "1112");
-    		Boleto bol4 = new Boleto(2, "Laura", 28, 05021, "1112");
-    		boletos2.insert(bol3);
-    		boletos2.insert(bol4);
+            // Insertar minivanes con una colección de paseos vacía
+            fach.insertMinivan("MFL392", "Mercedes", "Lugi La Ferrari", 9, new capaLogica.paseos.Paseos());
+            fach.insertMinivan("MFL393", "Toyota", "Corolla", 9, new capaLogica.paseos.Paseos());
+            fach.insertMinivan("MFL394", "Ford", "Mustang", 6, new capaLogica.paseos.Paseos());
+            fach.insertMinivan("MFL333", "Toyota", "Corolla", 9, new capaLogica.paseos.Paseos());
 
-    		// Crear paseos con sus propias colecciones de boletos
-    		Paseo pas1 = new Paseo("MLNP12", new Destino("Punta Del Este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 20.99, "MFL392", boletos1);
-    		Paseo pas2 = new Paseo("1112", new Destino("Piriapolis"), LocalTime.of(11, 30), LocalTime.of(13, 30), 20.99, "MFL392", boletos2);
-    		Paseo pas3 = new Paseo("1114",new Destino("Piriapolis"), LocalTime.of(16, 0), LocalTime.of(17, 0), 20.99, "MFL392", boletos2);
-      
-            Paseos paseos = new Paseos();
-            Paseos paseos2 = new Paseos();
-
-            fach.insertMinivan("MFL392", "Mercedes", "Lugi La Ferrari", 9, paseos);
-            fach.insertMinivan("MFL393", "Toyota", "Corolla", 9, paseos);
-            fach.insertMinivan("MFL394", "Ford", "Mustang", 6, paseos);
-            fach.insertMinivan("MFL333", "Toyota", "Corolla", 9, paseos2);
-
-            // Insertar paseos 
+            // Insertar paseos con horarios válidos
             fach.insertPaseo("MLNP12", new Destino("Punta Del Este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 20.99);
             fach.insertPaseo("1112", new Destino("Piriapolis"), LocalTime.of(11, 30), LocalTime.of(13, 30), 20.99);
             fach.insertPaseo("1114", new Destino("Piriapolis"), LocalTime.of(16, 0), LocalTime.of(17, 0), 20.99);
@@ -72,33 +49,46 @@ public class Cliente {
                 System.err.println("Error al listar minivanes: " + e.getMessage());
                 e.printStackTrace();
             }
-         
 
             // Listar paseos por minivan
             System.out.println("\n=== Listado de Paseos por Minivan (MFL392) ===");
-            LinkedList<VOPaseo> paseosMinivan = fach.listarPaseosPorMinivan("MFL393");
-            for (VOPaseo paseo : paseosMinivan) {
-                paseo.printVOPaseo();
+            try {
+                LinkedList<VOPaseo> paseosMinivan = fach.listarPaseosPorMinivan("MFL392");
+                if (paseosMinivan.isEmpty()) {
+                    System.out.println("No hay paseos asignados a la minivan MFL392.");
+                } else {
+                    for (VOPaseo paseo : paseosMinivan) {
+                        paseo.printVOPaseo();
+                    }
+                }
+            } catch (RemoteException | miniVanException e) {
+                System.err.println("Error al listar paseos por minivan: " + e.getMessage());
+                e.printStackTrace();
             }
 
             // Listar paseos con boletos disponibles
             System.out.println("\n=== Listado de Paseos con Boletos Disponibles (Cantidad >= 1) ===");
-            LinkedList<VOPaseo> paseosDisponibles = fach.listarPaseosDispBoletos(1);
-            for (VOPaseo paseo : paseosDisponibles) {
-                paseo.printVOPaseo();
+            try {
+                LinkedList<VOPaseo> paseosDisponibles = fach.listarPaseosDispBoletos(1);
+                for (VOPaseo paseo : paseosDisponibles) {
+                    paseo.printVOPaseo();
+                }
+            } catch (RemoteException | boletoException e) {
+                System.err.println("Error al listar paseos disponibles: " + e.getMessage());
+                e.printStackTrace();
             }
 
-            // Vender boletos (ajustar números de teléfono como en el main de referencia)
+            // Vender boletos
             System.out.println("\n=== Venta de Boletos ===");
             boolean boleto = true;
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 04021, "MLNP12", 0, boleto); // Boleto común
+            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 0, boleto); // Boleto común
             boleto = false;
-            fach.ventaBoleto("MLNP15", "Laura", 28, 05021, "MLNP12", 14, boleto); // Boleto especial
+            fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "MLNP12", 14, boleto); // Boleto especial
 
             // Mostrar monto recaudado por paseo
             System.out.println("\n=== Monto Recaudado por Paseo ===");
             System.out.println("Monto recaudado para el paseo MLNP12: " + fach.montoRecaudado("MLNP12"));
-            System.out.println("Monto recaudado para el paseo 1112: " + fach.montoRecaudado("MLNP12"));
+            System.out.println("Monto recaudado para el paseo 1112: " + fach.montoRecaudado("1112"));
             
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
