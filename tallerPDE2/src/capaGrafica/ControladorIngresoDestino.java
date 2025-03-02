@@ -4,7 +4,6 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 import capaLogica.Ifachada;
-import capaLogica.destinos.Destino;
 import capaLogica.destinos.DestinoException;
 
 public class ControladorIngresoDestino {
