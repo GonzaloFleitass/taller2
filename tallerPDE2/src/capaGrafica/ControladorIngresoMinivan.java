@@ -25,10 +25,10 @@ public class ControladorIngresoMinivan {
 		    }
 
 	
-public void ingresoMinivan(String matricula, String marca, String modelo, int cantAsientos, Paseos paseosAsignados)throws RemoteException,miniVanException{
+public void ingresoMinivan(String matricula, String marca, String modelo, int cantAsientos)throws RemoteException,miniVanException{
 	try {
     	
-        fach.insertMinivan(matricula, marca, modelo, cantAsientos, paseosAsignados);
+        fach.insertMinivan(matricula, marca, modelo, cantAsientos);
        
     } catch (Exception e) {
         e.printStackTrace();

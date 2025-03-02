@@ -37,9 +37,9 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	}
 
 	@Override
-	public void insertMinivan(String matricula, String marca, String modelo, int cantAsientos, Paseos paseosAsignados)
+	public void insertMinivan(String matricula, String marca, String modelo, int cantAsientos)
 			throws InterruptedException, miniVanException, RemoteException {
-
+		Paseos paseosAsignados = new Paseos();
 		monitor.comienzoEscritura();
 
 		// Verificamos si ya existe una minivan con la matrícula dada

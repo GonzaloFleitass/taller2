@@ -19,8 +19,6 @@ import capaPersistencia.PersistenciaException;
 
 public interface Ifachada extends Remote {
 
-	void insertMinivan(String matricula, String marca, String modelo, int cantAsientos, Paseos paseosAsignados)
-			throws InterruptedException, miniVanException, RemoteException;
 
 	// Lista las minivanes
 	public LinkedList<VoMinivan> listadoMinivanes() throws RemoteException ;
@@ -50,5 +48,8 @@ public interface Ifachada extends Remote {
 	void recuperar(String nomArch) throws PersistenciaException, RemoteException;
 
 	void insertDestino(String des) throws DestinoException, RemoteException;
+
+	void insertMinivan(String matricula, String marca, String modelo, int cantAsientos)
+			throws InterruptedException, miniVanException, RemoteException;
 
 }
