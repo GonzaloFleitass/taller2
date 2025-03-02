@@ -1,6 +1,7 @@
+package capaGrafica;
+
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.time.LocalTime;
 
 import capaLogica.Ifachada;
 
