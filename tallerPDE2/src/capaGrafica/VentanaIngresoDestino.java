@@ -24,7 +24,7 @@ public class VentanaIngresoDestino extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField textField;
-    private Ifachada Fachada; 
+   
 
     /**
      * Launch the application.
@@ -47,8 +47,8 @@ public class VentanaIngresoDestino extends JFrame {
      * @throws RemoteException 
      */
     public VentanaIngresoDestino() throws RemoteException {
-        Fachada = new fachada(); 
-
+    
+    	 ControladorIngresoDestino controladorIngresoDestino = new ControladorIngresoDestino(this);
         setTitle("INGRESO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -73,9 +73,10 @@ public class VentanaIngresoDestino extends JFrame {
                 String destino = textField.getText().trim();
                 if (!destino.isEmpty()) {
                     try {
-                        Fachada.insertDestino(destino);
+                       
+						controladorIngresoDestino.ingresoDest(destino);
                         JOptionPane.showMessageDialog(null, "Destino ingresado correctamente: " + destino);
-                    } catch (DestinoException | RemoteException ex) {
+                    } catch (RemoteException | DestinoException ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), 
                             "Error", JOptionPane.ERROR_MESSAGE);
                     }

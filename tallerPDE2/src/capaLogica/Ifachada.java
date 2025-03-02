@@ -43,10 +43,11 @@ public interface Ifachada extends Remote {
 
 	double montoRecaudado(String cod) throws paseoException, RemoteException;
 	
-	public void insertDestino(String des) throws DestinoException, RemoteException;
 
 	void respaldar(String nomArch) throws PersistenciaException, RemoteException;
 
 	void recuperar(String nomArch) throws PersistenciaException, RemoteException;
+
+	void insertDestino(String des) throws DestinoException, RemoteException;
 
 }

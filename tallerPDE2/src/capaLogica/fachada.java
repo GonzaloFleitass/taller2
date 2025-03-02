@@ -194,7 +194,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	}
 
 	
-	
+	@Override
 	public void insertDestino(String des) throws DestinoException, RemoteException{
 		if(destinos.member(des) == true) {
 			throw new DestinoException("Error, Ya existe Destino");
@@ -222,4 +222,8 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		monitor.terminoEscritura();
 	}
 
-}
+	
+		
+	}
+
+
