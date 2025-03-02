@@ -10,6 +10,7 @@ import capaLogica.boletos.VOBoleto;
 import capaLogica.boletos.boletoException;
 import capaLogica.destinos.Destino;
 import capaLogica.destinos.DestinoException;
+import capaLogica.minivanes.VoMinivan;
 import capaLogica.minivanes.miniVanException;
 import capaLogica.paseos.Paseos;
 import capaLogica.paseos.VOPaseo;
@@ -22,20 +23,20 @@ public interface Ifachada extends Remote {
 			throws InterruptedException, miniVanException, RemoteException;
 
 	// Lista las minivanes
-	void listadoMinivanes() throws RemoteException;
+	public LinkedList<VoMinivan> listadoMinivanes() throws RemoteException ;
+
 
 	void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec)
 			throws paseoException, RemoteException;
 
-	// OPCION 1- MUESTRA EN PANTALLA TODOS LOS PASEOS SEGUN UNA MINIVAN
+
 	LinkedList<VOPaseo> listarPaseosPorMinivan(String matri) throws miniVanException, RemoteException;
 
 	LinkedList<VOPaseo> listarPaseosPorDestinos(Destino destino) throws paseoException, RemoteException;
 
-	// OPCION 2- RETORONA LA LISTA VOPASEOS SEGUN UNA CANTIDAD DE BOLETOS
+	
 	LinkedList<VOPaseo> listarPaseosDispBoletos(int cantBol) throws boletoException, RemoteException, RemoteException;
 
-	// INGRESA BOLETO A LA COLECCION DE BOLETOS DEL PASEO PASADO POR EL USUARIO
 	void ventaBoleto(String codigoBol, String nombre, int edad, int celu, String codigoPas, double descuento,
 			boolean comun) throws paseoException, RemoteException;
 

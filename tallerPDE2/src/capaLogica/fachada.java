@@ -22,6 +22,7 @@ import capaLogica.paseos.*;
 import capaLogica.destinos.*;
 
 public class fachada extends UnicastRemoteObject implements Ifachada {
+	private static final LinkedList<VoMinivan> VOminivanes = null;
 	private Paseos paseos;
 	private Minivanes minivanes;
 	private Monitor monitor;
@@ -61,18 +62,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		monitor.terminoEscritura();
 	}
 
-	// Lista las minivanes
-	@Override
-	public void listadoMinivanes() throws RemoteException {
-		monitor.comienzoLectura();
-		LinkedList<VoMinivan> VOminivanes = minivanes.listarMinivanes();
-		Iterator<VoMinivan> iterador = VOminivanes.iterator();
-		while (iterador.hasNext()) {
-			iterador.next().printVOMinivan();
-			;
-		}
-		monitor.terminoLectura();
-	}
+
 
 	@Override
 	public void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec)
@@ -101,12 +91,20 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		}
 
 	}
-
+	// Lista las minivanes
+	@Override
+	public LinkedList<VoMinivan> listadoMinivanes() throws RemoteException {
+		monitor.comienzoLectura();
+		
+		monitor.terminoLectura();
+		return minivanes.listarMinivanes();
+	
+	}
 	@Override
 	public LinkedList<VOPaseo> listarPaseosPorMinivan(String matri) throws miniVanException, RemoteException {
 
 		monitor.comienzoLectura();
-		if (minivanes.member(matri) == true) {
+		if (minivanes.member(matri) != true) {
 			monitor.terminoLectura();
 			throw new miniVanException("Error- no existe minivan con esa matricula");
 		}

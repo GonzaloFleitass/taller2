@@ -1,8 +1,10 @@
 package capaLogica.minivanes;
 
+import java.io.Serializable;
+
 import capaLogica.paseos.Paseos;
 
-public class VoMinivan {
+public class VoMinivan implements Serializable{
 
 	// Atributos que almacenan información básica sobre la minivan
 	private String matricula;
