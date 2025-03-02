@@ -18,7 +18,7 @@ public class ControladorIngresoDestino {
 
 		        try {
 		            // Hacer el lookup del objeto remoto
-		            this.fach = (Ifachada) Naming.lookup("rmi://localhost/FachadaRemota");
+		            this.fach = (Ifachada) Naming.lookup("//localhost:1099/fachada");
 		        } catch (Exception e) {
 		            e.printStackTrace();
 		        }
