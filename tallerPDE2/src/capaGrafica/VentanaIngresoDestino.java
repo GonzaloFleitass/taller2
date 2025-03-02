@@ -66,7 +66,7 @@ public class VentanaIngresoDestino extends JFrame {
         textField.setBounds(159, 100, 130, 26);
         contentPane.add(textField);
         textField.setColumns(10);
-//
+//h
         JButton Ingresar = new JButton("Ingresar");
         Ingresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
