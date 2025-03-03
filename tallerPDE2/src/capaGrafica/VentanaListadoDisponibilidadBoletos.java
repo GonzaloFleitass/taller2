@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaListadoDisponibilidadBoletos extends JFrame {
 
@@ -57,6 +59,11 @@ public class VentanaListadoDisponibilidadBoletos extends JFrame {
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton.setBounds(554, 42, 117, 29);
 		contentPane.add(btnNewButton);
 		

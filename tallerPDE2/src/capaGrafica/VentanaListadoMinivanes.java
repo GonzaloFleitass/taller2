@@ -26,7 +26,7 @@ public class VentanaListadoMinivanes extends JFrame {
 	private ControladorListadoMinivanes controladorListadoMinivanes; // Instancia del controlador
 
 	/**
-	 * Launch the application.
+	 * Launch the 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
