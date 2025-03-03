@@ -2,6 +2,10 @@ package capaLogica.destinos;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import capaLogica.minivanes.Minivan;
+import capaLogica.minivanes.VoMinivan;
+
 import java.io.Serializable;
 
 public class Destinos implements Serializable {
@@ -39,5 +43,18 @@ public class Destinos implements Serializable {
 		}
 		return null;
 	}
+	
+	
+	
+	public LinkedList<String> getDestinos() {
+	    LinkedList<String> nombres = new LinkedList<>();
+	    //recorre todos lso destinos y crea una lsita solo con los nombres
+	        for (Destino d : Destinos) {
+	            nombres.add(d.getNombre());
+	        }
+
+	    return nombres;
+	}
+
 
 }

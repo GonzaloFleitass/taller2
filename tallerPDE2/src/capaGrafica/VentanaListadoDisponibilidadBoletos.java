@@ -39,7 +39,7 @@ public class VentanaListadoDisponibilidadBoletos extends JFrame {
 	 */
 	public VentanaListadoDisponibilidadBoletos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("Menu.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,20 +48,20 @@ public class VentanaListadoDisponibilidadBoletos extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Cantidad de boletos");
-		lblNewLabel.setBounds(6, 47, 168, 16);
+		lblNewLabel.setBounds(179, 47, 168, 16);
 		contentPane.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setBounds(154, 42, 130, 26);
+		textField.setBounds(396, 42, 130, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(307, 42, 117, 29);
+		btnNewButton.setBounds(554, 42, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		table = new JTable();
-		table.setBounds(6, 76, 438, 190);
+		table.setBounds(6, 76, 788, 467);
 		contentPane.add(table);
 		
 		JButton btnNewButton_1 = new JButton("Volver");

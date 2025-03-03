@@ -41,7 +41,7 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
 	public VentanaListadoPaseosPorDestino() {
 		setTitle("LISTADO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("List.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,13 +50,13 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Destinos");
-		lblNewLabel.setBounds(77, 43, 61, 16);
+		lblNewLabel.setBounds(225, 43, 61, 16);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(315, 38, 117, 29);
+		btnNewButton.setBounds(480, 38, 117, 29);
 		contentPane.add(btnNewButton);
-		comboBox.setBounds(150, 38, 141, 29);
+		comboBox.setBounds(327, 38, 141, 29);
 		contentPane.add(comboBox);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
@@ -64,11 +64,11 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		table = new JTable();
-		table.setBounds(20, 71, 395, 195);
+		table.setBounds(20, 71, 753, 476);
 		contentPane.add(table);
 		
 		JLabel lblNewLabel_1 = new JLabel("Listado de paseos por destino");
-		lblNewLabel_1.setBounds(135, 5, 215, 16);
+		lblNewLabel_1.setBounds(294, 5, 215, 16);
 		contentPane.add(lblNewLabel_1);
 	}
 }

@@ -45,7 +45,7 @@ public class Minivanes implements Serializable {
 		if (Minivanes.get(Ma) != null) {
 			Minivan m = Minivanes.get(Ma);
 			VOPaseos = m.listarPaseosAsignados();
-			// comentario random que pidio Gonza
+			
 
 		}
 
@@ -55,30 +55,30 @@ public class Minivanes implements Serializable {
 	// Método para listar todas las minivanes en el sistema, creando un LinkedList
 	// de VoMinivan
 	public LinkedList<VoMinivan> listarMinivanes() {
-		Iterator<Minivan> iter = Minivanes.values().iterator();
-		LinkedList<VoMinivan> VOMinivanes = new LinkedList<>();
+	    LinkedList<VoMinivan> voMinivanes = new LinkedList<>();
 
-		// Itera sobre cada minivan y crea un objeto VoMinivan con la información básica
-		// de cada una
-		while (iter.hasNext()) {
-			Minivan currentMinivan = iter.next();
-			VoMinivan vmin = new VoMinivan(currentMinivan.getMatricula(), currentMinivan.getMarca(),
-					currentMinivan.getModelo(), currentMinivan.getcantAsientos(),
-					currentMinivan.getPaseosAsignados().cantPaseos());
-			VOMinivanes.add(vmin);
-		}
-
-		return VOMinivanes;
+	    for (Minivan minivan : Minivanes.values()) {
+	        VoMinivan vmin = new VoMinivan(
+	            minivan.getMatricula(),
+	            minivan.getMarca(),
+	            minivan.getModelo(),
+	            minivan.getcantAsientos(),
+	            minivan.getPaseosAsignados().cantPaseos()
+	        );
+	        voMinivanes.add(vmin);
+	    }
+	    return voMinivanes;
 	}
 
 	public Minivan findMinivanDisponible(LocalTime horaPartida, LocalTime horaRegreso) {
-		Iterator<Minivan> iter = Minivanes.values().iterator();
-		while (iter.hasNext()) {
-			if (iter.next().estaDisponible(horaPartida, horaRegreso)) {
-				return iter.next();
-			}
-		}
-		return null;
+	    Iterator<Minivan> iter = Minivanes.values().iterator();
+	    while (iter.hasNext()) {
+	        Minivan minivan = iter.next(); 
+	        if (minivan.estaDisponible(horaPartida, horaRegreso)) {
+	            return minivan;
+	        }
+	    }
+	    return null;
 	}
 
 }

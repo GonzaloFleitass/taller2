@@ -201,6 +201,11 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		Destino dest = new Destino(des);
 		destinos.insert(dest);
 	}
+	
+	@Override
+	public LinkedList<String> getDestinos() throws DestinoException, RemoteException{
+		return destinos.getDestinos();
+	}
 	@Override
 	public void respaldar(String nomArch) throws PersistenciaException, RemoteException {
 		monitor.comienzoLectura();

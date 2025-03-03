@@ -5,6 +5,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.time.LocalTime;
 import java.util.LinkedList;
+import java.util.List;
 
 import capaLogica.boletos.VOBoleto;
 import capaLogica.boletos.boletoException;
@@ -51,5 +52,8 @@ public interface Ifachada extends Remote {
 
 	void insertMinivan(String matricula, String marca, String modelo, int cantAsientos)
 			throws InterruptedException, miniVanException, RemoteException;
+
+
+	public LinkedList<String> getDestinos() throws DestinoException, RemoteException;
 
 }

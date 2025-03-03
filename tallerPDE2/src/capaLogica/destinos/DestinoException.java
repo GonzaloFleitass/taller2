@@ -7,10 +7,10 @@ public class DestinoException extends Exception {
 
 	// Constructor con mensaje personalizado
 	public DestinoException(String mens) {
-		super(mens);
+		this.mensaje = mens;
 	}
 
-	public static String darMensaje(String mensaje) {
+	public String darMensaje() {
 		return mensaje;
 	}
 

@@ -9,7 +9,7 @@ public class boletoException extends Exception {
 		this.mensaje = mens;
 	}
 
-	public static String darMensaje(String mensaje) {
+	public String darMensaje() {
 		return mensaje;
 	}
 

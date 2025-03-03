@@ -1,113 +1,163 @@
 package capaGrafica;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import capaLogica.destinos.Destino;
+import capaLogica.paseos.Paseo;
+import capaLogica.paseos.paseoException;
 
 public class VentanaIngresoPaseo extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField codPaseo;
+    private JComboBox<String> comboDestino;
+    private JFormattedTextField horaPartida;
+    private JFormattedTextField horaLlegada;
+    private JFormattedTextField precio;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaIngresoPaseo frame = new VentanaIngresoPaseo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                VentanaIngresoPaseo frame = new VentanaIngresoPaseo();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaIngresoPaseo() {
-		setTitle("INGRESO");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setForeground(UIManager.getColor("List.selectionInactiveForeground"));
-		contentPane.setBackground(UIManager.getColor("Menu.background"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+    public VentanaIngresoPaseo() {
+        setTitle("INGRESO DE PASEO");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 600);
+        contentPane = new JPanel();
+        contentPane.setBackground(UIManager.getColor("Menu.background"));
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Ingresar Paseo");
-		lblNewLabel.setBounds(178, 6, 143, 16);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Codigo");
-		lblNewLabel_1.setBounds(16, 39, 107, 16);
-		contentPane.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Destino");
-		lblNewLabel_2.setBounds(16, 67, 107, 16);
-		contentPane.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Hora de partida");
-		lblNewLabel_3.setBounds(16, 110, 107, 16);
-		contentPane.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("Hora de regreso");
-		lblNewLabel_4.setBounds(16, 138, 107, 16);
-		contentPane.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Precio base");
-		lblNewLabel_5.setBounds(16, 166, 107, 16);
-		contentPane.add(lblNewLabel_5);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(157, 67, 138, 27);
-		contentPane.add(comboBox);
-		
-		textField = new JTextField();
-		textField.setBounds(157, 34, 138, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(157, 105, 138, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(157, 133, 138, 26);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(157, 161, 138, 26);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.setBackground(UIManager.getColor("desktop"));
-		btnNewButton.setBounds(75, 216, 117, 29);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBackground(UIManager.getColor("RadioButtonMenuItem.disabledForeground"));
-		btnNewButton_1.setBounds(227, 216, 117, 29);
-		contentPane.add(btnNewButton_1);
-	}
+        JLabel lblCodPaseo = new JLabel("Código Paseo");
+        lblCodPaseo.setBounds(166, 79, 100, 16);
+        contentPane.add(lblCodPaseo);
+
+        JLabel lblDestino = new JLabel("Destino");
+        lblDestino.setBounds(166, 148, 61, 16);
+        contentPane.add(lblDestino);
+
+        JLabel lblHoraPartida = new JLabel("Hora Partida");
+        lblHoraPartida.setBounds(166, 214, 100, 16);
+        contentPane.add(lblHoraPartida);
+
+        JLabel lblHoraLlegada = new JLabel("Hora Llegada");
+        lblHoraLlegada.setBounds(166, 294, 100, 16);
+        contentPane.add(lblHoraLlegada);
+
+        JLabel lblPrecio = new JLabel("Precio");
+        lblPrecio.setBounds(166, 371, 61, 16);
+        contentPane.add(lblPrecio);
+
+        codPaseo = new JTextField();
+        codPaseo.setBounds(316, 74, 130, 26);
+        contentPane.add(codPaseo);
+        codPaseo.setColumns(10);
+
+        // ComboBox para seleccionar el destino
+        comboDestino = new JComboBox<>();
+        comboDestino.setBounds(316, 144, 130, 26);
+        contentPane.add(comboDestino);
+
+        // Llenamos el ComboBox con los destinos,  toy llamando al controlador de destino para eso
+        ControladorIngresoDestino controladorDestino = new ControladorIngresoDestino(this);
+        try {
+            List<String> destinos = controladorDestino.getListaDestinos();
+            if (destinos != null) {
+                for (String destino : destinos) {
+                    comboDestino.addItem(destino);
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // Obtener la hora actual
+        LocalTime horaActual = LocalTime.now();
+
+        horaPartida = new JFormattedTextField(formatter);
+        horaPartida.setBounds(316, 209, 130, 26);
+        horaPartida.setText(horaActual.format(formatter)); 
+        contentPane.add(horaPartida);
+
+        horaLlegada = new JFormattedTextField(formatter);
+        horaLlegada.setBounds(316, 289, 130, 26);
+        horaLlegada.setText(horaActual.plusMinutes(60).format(formatter)); 
+        contentPane.add(horaLlegada);
+
+        precio = new JFormattedTextField();
+        precio.setBounds(316, 366, 130, 26);
+        contentPane.add(precio);
+
+        JButton btnIngresar = new JButton("Ingresar");
+        btnIngresar.addActionListener(e -> {
+            try {
+                String cod = codPaseo.getText().trim();
+
+                // Validamos que el código y el destino no estén vacíos
+                if (cod.isEmpty() || comboDestino.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Destino dest = new Destino((String) comboDestino.getSelectedItem());
+
+
+                // Validación de hora de partida y llegada
+                if (horaPartida.getValue() == null || horaLlegada.getValue() == null) {
+                    JOptionPane.showMessageDialog(this, "Hora de partida y llegada deben ser válidas.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                LocalTime hpart = LocalTime.parse(horaPartida.getText());
+                LocalTime hllega = LocalTime.parse(horaLlegada.getText());
+
+                double precioBase = Double.parseDouble(precio.getText());
+
+                if (precioBase <= 0) {
+                    JOptionPane.showMessageDialog(this, "El precio debe ser mayor a cero.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ControladorIngresoPaseo controlador = new ControladorIngresoPaseo(this);
+
+                try {
+                    controlador.ingresoPaseo(cod, dest, hpart, hllega, precioBase);
+                    JOptionPane.showMessageDialog(this, "Paseo ingresado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (paseoException ex) {
+                    JOptionPane.showMessageDialog(this, "Error al ingresar el paseo: " + ex.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Ingrese datos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        btnIngresar.setBounds(180, 466, 117, 29);
+        contentPane.add(btnIngresar);
+
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> dispose());
+        btnCancelar.setBounds(484, 466, 117, 29);
+        contentPane.add(btnCancelar);
+        
+        JLabel lblNewLabel = new JLabel("Ingresar Paseo");
+        lblNewLabel.setBounds(316, 19, 254, 16);
+        contentPane.add(lblNewLabel);
+    }
 }

@@ -41,7 +41,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 	public VentanaListadoPaseosAsignadosMinivan() {
 		setTitle("LISTADO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("List.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,20 +50,20 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Matricula");
-		lblNewLabel.setBounds(78, 42, 61, 16);
+		lblNewLabel.setBounds(219, 42, 61, 16);
 		contentPane.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setBounds(151, 37, 130, 26);
+		textField.setBounds(310, 37, 130, 26);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(293, 37, 117, 29);
+		btnNewButton.setBounds(452, 37, 117, 29);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Listado de paseos por minivan ");
-		lblNewLabel_1.setBounds(129, 6, 204, 16);
+		lblNewLabel_1.setBounds(285, 6, 204, 16);
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
@@ -71,7 +71,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		table = new JTable();
-		table.setBounds(23, 76, 406, 190);
+		table.setBounds(23, 76, 749, 464);
 		contentPane.add(table);
 	}
 

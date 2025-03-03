@@ -51,15 +51,13 @@ public class Minivan implements Serializable {
 
 	// Método que verifica si la minivan está disponible en un rango de horarios
 	public boolean estaDisponible(LocalTime horaPartida, LocalTime horaRegreso) {
-		Iterator<Paseo> iter = paseosAsignados.getPaseos().values().iterator();
-		while (iter.hasNext()) {
-			Paseo pas = iter.next();
-			// Si las horas no se solapan, la minivan no está disponible
-			if (!(horaRegreso.isBefore(pas.getHoraPartida()) || horaPartida.isAfter(pas.getHoraLlegada()))) {
-				return false;
-			}
-		}
-		return true;
+	    for (Paseo pas : paseosAsignados.getPaseos().values()) {
+	        // Si las horas se solapan, la minivan NO está disponible
+	        if (!(horaRegreso.isBefore(pas.getHoraPartida()) || horaPartida.isAfter(pas.getHoraLlegada()))) {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 
 	public LinkedList<VOPaseo> listarPaseosAsignados() {

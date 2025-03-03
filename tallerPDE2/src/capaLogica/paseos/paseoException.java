@@ -9,7 +9,7 @@ public class paseoException extends Exception {
 		this.mensaje = mens;
 	}
 
-	public static String darMensajePaseo(String mensaje) {
+	public String darMensaje() {
 		return mensaje;
 	}
 

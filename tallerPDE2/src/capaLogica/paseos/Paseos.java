@@ -32,22 +32,31 @@ public class Paseos implements Serializable {
 
 	// Método que lista los paseos asignados a un destino específico
 	public LinkedList<VOPaseo> listarPaseosPorDestino(Destino des, Minivanes mini) {
-		Iterator<Paseo> iter = Paseos.values().iterator();
-		LinkedList<VOPaseo> VOPaseos = new LinkedList<>();
+	    LinkedList<VOPaseo> voPaseos = new LinkedList<>();
 
-		// Filtra los paseos por el destino
-		while (iter.hasNext()) {
-			Paseo pas = iter.next();
-			if (des.equals(pas.getDestino())) {
-				String mat = pas.getMatricula();
-				Minivan miniv = mini.find(mat);
-				VOPaseo vpas = new VOPaseo(pas.getCodigo(), pas.getDestino(), pas.getHoraPartida(),
-						pas.getHoraLlegada(), pas.getPrecioBase(), pas.cantMaxBoletos(miniv), pas.cantBolDisp(miniv));
-				VOPaseos.add(vpas);
-			}
-		}
+	    for (Paseo pas : Paseos.values()) {
+	    	//verifica si el destino dado por el usuario es igual al destino del paseo actual
+	        if (des.equals(pas.getDestino())) {
+	        	//si lo encuentra asigna la minivan que tiene ese destino
+	            Minivan miniv = mini.find(pas.getMatricula());
 
-		return VOPaseos;
+	           
+	            int maxBoletos = pas.cantMaxBoletos(miniv) ;
+	            int boletosDisp =  pas.cantBolDisp(miniv) ;
+
+	            VOPaseo vpas = new VOPaseo(
+	                pas.getCodigo(),
+	                pas.getDestino(),
+	                pas.getHoraPartida(),
+	                pas.getHoraLlegada(),
+	                pas.getPrecioBase(),
+	                maxBoletos,
+	                boletosDisp
+	            );
+	            voPaseos.add(vpas);
+	        }
+	    }
+	    return voPaseos;
 	}
 
 	// Método que lista los paseos disponibles con una cantidad mínima de boletos
