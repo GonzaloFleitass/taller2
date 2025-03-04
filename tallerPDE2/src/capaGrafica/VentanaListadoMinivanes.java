@@ -38,7 +38,7 @@ public class VentanaListadoMinivanes extends JFrame {
 					e.printStackTrace();
 				}
 			}
-			// hola prueba
+		
 			
 		});
 	}

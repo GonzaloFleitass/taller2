@@ -27,7 +27,7 @@ public class ControladorListadoDisponibilidadBoletos {
 		    }
 
 	
-public LinkedList<VOPaseo> ListarPasDisBol(char cantBol)throws RemoteException,boletoException{
+public LinkedList<VOPaseo> ListarPasDisBol(int cantBol)throws RemoteException,boletoException{
 	try {
     	
         return fach.listarPaseosDispBoletos(cantBol);
