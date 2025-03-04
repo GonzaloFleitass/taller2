@@ -184,8 +184,7 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         try {
             String codigo = textFieldCodigo.getText().trim();
             if (codigo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese un código de paseo.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return;
+            	System.out.println("No se encontraron boletos o hubo un error al obtener el listado.");
             }
 
             char tipoBoleto = checkBoxEspecial.isSelected() ? 'E' : 'C'; // 'E' para especial, 'C' para común
@@ -195,8 +194,8 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
             mostrarBoletosEnTabla(listaBoletos);
 
         } catch (RemoteException | paseoException e) {
-            JOptionPane.showMessageDialog(this, "Error al obtener los boletos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        	e.printStackTrace();
+			System.out.println("Error de conexión RMI al obtener el listado de boletos.");
         }
     }
 
