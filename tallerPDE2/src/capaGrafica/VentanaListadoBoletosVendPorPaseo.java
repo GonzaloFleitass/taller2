@@ -228,3 +228,4 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         table.setModel(model);
     }
 }
+

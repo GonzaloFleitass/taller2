@@ -50,7 +50,7 @@ public class VentanaMenuPrincipal extends JFrame {
         btnMontoRecaudado.addActionListener(e -> abrirVentana(new VentanaMontoRecaudado()));
         btnVentaBoleto.addActionListener(e -> abrirVentana(new VentanaVentaBoleto()));
 
-        // Agregar botones al panel principal
+        // Agregar botones al panel principal...
         panelPrincipal.add(btnIngresoDestino);
         panelPrincipal.add(btnIngresoMinivan);
         panelPrincipal.add(btnIngresoPaseo);
