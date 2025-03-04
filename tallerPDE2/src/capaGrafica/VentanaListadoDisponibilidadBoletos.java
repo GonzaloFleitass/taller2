@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import capaLogica.boletos.boletoException;
-import capaLogica.minivanes.VoMinivan;
 import capaLogica.paseos.VOPaseo;
 
 import javax.swing.UIManager;
@@ -97,13 +96,17 @@ public class VentanaListadoDisponibilidadBoletos extends JFrame {
 		btnNewButton.setBounds(554, 42, 117, 29);
 		contentPane.add(btnNewButton);
 		
+		
+		
+		
 		table = new JTable();
 		table.setBounds(6, 76, 788, 467);
 		contentPane.add(table);
 		
-		JButton btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setBounds(6, 0, 117, 29);
-		contentPane.add(btnNewButton_1);
+		JButton Volver = new JButton("Volver");
+		Volver.addActionListener(e->dispose());
+		Volver.setBounds(6, 0, 117, 29);
+		contentPane.add(Volver);
 	}
 	private void mostrarListadoEnTabla ( LinkedList<VOPaseo> ListarPasDisBol) {
 		DefaultTableModel model = new DefaultTableModel() {

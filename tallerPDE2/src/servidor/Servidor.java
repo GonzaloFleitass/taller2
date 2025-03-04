@@ -13,7 +13,7 @@ public class Servidor {
         try {
             int puerto = 1099;
             
-            // Intentar iniciar el registro RMI con el puerto 1099, si el server esta encendido tira error
+            // Intentar iniciar el registro RMI con el puerto 1099, si el server esta encendido tira error...
             try {
                 LocateRegistry.createRegistry(puerto);
                 System.out.println("RMI iniciado en el puerto " + puerto);

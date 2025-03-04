@@ -4,13 +4,21 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import capaLogica.boletos.VOBoleto;
+import capaLogica.paseos.paseoException;
+
 import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 
@@ -214,15 +222,15 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         model.addColumn("Nombre");
         model.addColumn("Edad");
         model.addColumn("Celular");
-        model.addColumn("Código Boleto");
+      
 
         for (VOBoleto boleto : listaBoletos) {
             model.addRow(new Object[]{
-                boleto.getNumero(),
+                boleto.getNumBoleto(),
                 boleto.getNombre(),
                 boleto.getEdad(),
                 boleto.getCelular(),
-                boleto.getCodigoBoleto()
+               
             });
         }
         table.setModel(model);

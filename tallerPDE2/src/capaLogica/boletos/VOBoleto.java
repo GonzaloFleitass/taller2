@@ -33,4 +33,6 @@ public class VOBoleto implements Serializable {
 	public int getCelular() {
 		return celular;
 	}
+	
+	
 }
