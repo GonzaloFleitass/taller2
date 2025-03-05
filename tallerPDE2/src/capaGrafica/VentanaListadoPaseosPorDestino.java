@@ -81,7 +81,9 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
                         Destino destino = new Destino(destinoSeleccionado);
                    
                         LinkedList<VOPaseo> paseosPorDestino = controladorListarPaseosPorDestino.ListarPasPorDestino(destino);
-                        
+                     // Debug: Verificar qué devuelve el método
+                        System.out.println("Paseos encontrados: " + paseosPorDestino);
+
                         if (paseosPorDestino != null && !paseosPorDestino.isEmpty()) {
                             mostrarListadoEnTabla(paseosPorDestino);
                         } else {
