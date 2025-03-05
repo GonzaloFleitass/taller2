@@ -152,3 +152,4 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
         table.setModel(model);
     }
 }
+

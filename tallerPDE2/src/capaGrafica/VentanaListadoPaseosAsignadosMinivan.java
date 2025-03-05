@@ -111,7 +111,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
                 return;
             }
 
-            // Obtener la lista de paseos desde el controlador
+            // Obtener la lista de paseos desde el controladordad
             LinkedList<VOPaseo> listaPaseos = controlador.ListarPasPorMini(matricula);
 
             if (listaPaseos.isEmpty()) {
