@@ -1,15 +1,18 @@
 package servidor;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import capaLogica.Ifachada;
 import capaLogica.fachada;
+import capaPersistencia.PersistenciaException;
 
 public class Servidor {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PersistenciaException {
         try {
             int puerto = 1099;
             
@@ -23,7 +26,20 @@ public class Servidor {
             
             // Crear la instancia de la fachada
             Ifachada fach = new fachada();
-
+          
+            try {
+    			fach.recuperar();
+    		} catch (FileNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (PersistenciaException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+	
             // eso hace que quede publicado
             Naming.rebind("//localhost:" + puerto + "/fachada", fach);
             System.out.println("Fachada publicada exitosamente.");

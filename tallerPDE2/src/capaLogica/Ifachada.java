@@ -1,5 +1,7 @@
 package capaLogica;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.Remote;
 
 import java.rmi.RemoteException;
@@ -44,9 +46,10 @@ public interface Ifachada extends Remote {
 	double montoRecaudado(String cod) throws paseoException, RemoteException;
 	
 
-	void respaldar(String nomArch) throws PersistenciaException, RemoteException;
+	 void respaldar() throws PersistenciaException, FileNotFoundException, IOException ;
 
-	void recuperar(String nomArch) throws PersistenciaException, RemoteException;
+	 void recuperar() throws PersistenciaException, FileNotFoundException, IOException;
+
 
 	void insertDestino(String des) throws DestinoException, RemoteException;
 

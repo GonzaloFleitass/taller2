@@ -1,5 +1,7 @@
 package cliente;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -16,6 +18,7 @@ import capaLogica.boletos.VOBoleto;
 import capaLogica.boletos.boletoException;
 import capaLogica.paseos.VOPaseo;
 import capaLogica.paseos.paseoException;
+import capaPersistencia.PersistenciaException;
 
 public class Cliente {
     public static void main(String[] args) throws DestinoException, paseoException, boletoException, InterruptedException, miniVanException {
@@ -151,9 +154,22 @@ public class Cliente {
             System.out.println("\n=== Monto Recaudado por Paseo ===");
             System.out.println("Monto recaudado para el paseo MLNP12: " + fach.montoRecaudado("MLNP12"));
             System.out.println("Monto recaudado para el paseo 1112: " + fach.montoRecaudado("1112"));
-            
+            try {
+				fach.respaldar();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (PersistenciaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
+       
     }
+    
 }

@@ -4,12 +4,13 @@ import capaLogica.paseos.*;
 import capaPersistencia.PersistenciaException;
 import capaPersistencia.VOPersistencia;
 import capaPersistencia.persistencia;
-
+import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalTime;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Properties;
 
 import capaLogica.boletos.Boleto;
 import capaLogica.boletos.Boletos;
@@ -207,24 +208,35 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		return destinos.getDestinos();
 	}
 	@Override
-	public void respaldar(String nomArch) throws PersistenciaException, RemoteException {
+	public void respaldar() throws PersistenciaException, FileNotFoundException, IOException {
+		
 		monitor.comienzoLectura();
+		Properties p = new Properties();
+		String nomArch = "src/config/.properties";
+		p.load (new FileInputStream (nomArch));
 		persistencia P = new persistencia();
+		String nomArchivo = p.getProperty("nomarchivo");
 		VOPersistencia voPer = new VOPersistencia(minivanes, paseos);
-		P.respaldar(nomArch, voPer);
+		P.respaldar(nomArchivo, voPer);
 		monitor.terminoLectura();
 
 	}
-
 	@Override
-	public void recuperar(String nomArch) throws PersistenciaException, RemoteException {
+	public void recuperar() throws PersistenciaException, FileNotFoundException, IOException {
 		monitor.comienzoEscritura();
+		Properties p = new Properties();
+		String nomArch = "src/config/.properties";
+		// Abro el archivo properties y leo los datos de configuración
+		p.load (new FileInputStream (nomArch));
+		String nomArchivo = p.getProperty("nomarchivo");
 		persistencia P = new persistencia();
-		VOPersistencia voPer = P.recuperar(nomArch);
+		VOPersistencia voPer = P.recuperar(nomArchivo);
 		minivanes = voPer.getMinivanes();
 		paseos = voPer.getPaseos();
 		monitor.terminoEscritura();
 	}
+
+
 
 	
 		

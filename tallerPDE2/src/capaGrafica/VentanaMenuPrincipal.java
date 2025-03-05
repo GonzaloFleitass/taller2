@@ -3,8 +3,13 @@ package capaGrafica;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import capaPersistencia.PersistenciaException;
+
 import java.awt.*;
 import java.rmi.RemoteException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaMenuPrincipal extends JFrame {
 
@@ -54,6 +59,26 @@ public class VentanaMenuPrincipal extends JFrame {
         btnListadoPaseosPorDestino.addActionListener(e -> abrirVentana(new VentanaListadoPaseosPorDestino()));
         btnMontoRecaudado.addActionListener(e -> abrirVentana(new VentanaMontoRecaudado()));
         btnVentaBoleto.addActionListener(e -> abrirVentana(new VentanaVentaBoleto()));
+        
+        JMenuBar menuBar = new JMenuBar();
+        getContentPane().add(menuBar, BorderLayout.NORTH);
+        
+        JMenu mnNewMenu = new JMenu("Archivo");
+        menuBar.add(mnNewMenu);
+        
+        JMenuItem mntmNewMenuItem = new JMenuItem("Respaldar");
+        mntmNewMenuItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ControladorRespaldar controlador = new ControladorRespaldar(VentanaMenuPrincipal.this);
+        		try {
+					controlador.respaldar();
+				} catch (RemoteException | PersistenciaException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        mnNewMenu.add(mntmNewMenuItem);
 
         panelBotones.add(btnIngresoDestino);
         panelBotones.add(btnIngresoMinivan);
@@ -67,7 +92,7 @@ public class VentanaMenuPrincipal extends JFrame {
         panelBotones.add(btnVentaBoleto);
 
         panelPrincipal.add(panelBotones, BorderLayout.CENTER);
-        add(panelPrincipal);
+        getContentPane().add(panelPrincipal);
         setVisible(true);
     }
 
