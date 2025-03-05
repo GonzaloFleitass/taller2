@@ -33,6 +33,8 @@ public class ControladorIngresoDestino {
 	        e.printStackTrace();
 	    }
 	}
+	
+	
 
 	
 public void ingresoDest(String nombre)throws RemoteException,DestinoException{

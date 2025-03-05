@@ -39,4 +39,13 @@ public LinkedList <VOPaseo> ListarPasPorDestino(Destino dest)throws RemoteExcept
         return new LinkedList<>();  // Devuelve una lista vacía en caso de error
     	}
 	}
+
+public LinkedList<String> getListaDestinos() throws RemoteException {
+    try {
+        return fach.getDestinos();  // Obtener la lista de destinos desde la fachada
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
 }

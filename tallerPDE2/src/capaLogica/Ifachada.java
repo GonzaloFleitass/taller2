@@ -37,7 +37,7 @@ public interface Ifachada extends Remote {
 	LinkedList<VOPaseo> listarPaseosDispBoletos(int cantBol) throws boletoException, RemoteException, RemoteException;
 
 	void ventaBoleto(String codigoBol, String nombre, int edad, int celu, String codigoPas, double descuento,
-			boolean comun) throws paseoException, RemoteException;
+			char tipoBoleto) throws paseoException, RemoteException;
 
 	LinkedList<VOBoleto> listarBoletosPorPaseo(String codigo, char tipoBoleto) throws paseoException, RemoteException;
 

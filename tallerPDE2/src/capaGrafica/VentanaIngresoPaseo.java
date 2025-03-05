@@ -11,6 +11,7 @@ import java.util.List;
 import capaLogica.destinos.Destino;
 import capaLogica.paseos.Paseo;
 import capaLogica.paseos.paseoException;
+import java.awt.Font;
 
 public class VentanaIngresoPaseo extends JFrame {
 
@@ -42,7 +43,7 @@ public class VentanaIngresoPaseo extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-
+        setLocationRelativeTo(null);
         JLabel lblCodPaseo = new JLabel("Código Paseo");
         lblCodPaseo.setBounds(166, 79, 100, 16);
         contentPane.add(lblCodPaseo);
@@ -151,13 +152,14 @@ public class VentanaIngresoPaseo extends JFrame {
         btnIngresar.setBounds(180, 466, 117, 29);
         contentPane.add(btnIngresar);
 
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(e -> dispose());
-        btnCancelar.setBounds(484, 466, 117, 29);
-        contentPane.add(btnCancelar);
+        JButton Cancelar = new JButton("Cancelar");
+        Cancelar.addActionListener(e -> dispose());
+        Cancelar.setBounds(484, 466, 117, 29);
+        contentPane.add(Cancelar);
         
         JLabel lblNewLabel = new JLabel("Ingresar Paseo");
-        lblNewLabel.setBounds(316, 19, 254, 16);
+        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        lblNewLabel.setBounds(264, 6, 326, 29);
         contentPane.add(lblNewLabel);
     }
 }

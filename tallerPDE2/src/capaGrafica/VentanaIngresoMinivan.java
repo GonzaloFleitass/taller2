@@ -8,6 +8,7 @@ import capaLogica.minivanes.miniVanException;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaIngresoMinivan extends JFrame {
 
@@ -38,8 +39,10 @@ public class VentanaIngresoMinivan extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        setLocationRelativeTo(null);
 
         // Etiquetas centradas
+        
         JLabel lblMatricula = new JLabel("Matrícula");
         lblMatricula.setBounds(160, 124, 61, 16);
         contentPane.add(lblMatricula);
@@ -81,56 +84,59 @@ public class VentanaIngresoMinivan extends JFrame {
 
         // Botón "Ingresar" centrado
         JButton Ingresar = new JButton("Ingresar");
-        Ingresar.addActionListener(e -> {
-            try {
-                String matricula = Matricula.getText().trim();
-                String marca = Marca.getText().trim();
-                String modelo = Modelo.getText().trim();
+        Ingresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String matricula = Matricula.getText().trim();
+                    String marca = Marca.getText().trim();
+                    String modelo = Modelo.getText().trim();
 
-                if (matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+                    if (matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty()) {
+                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
 
-                int cantidadAsientos;
-                if (cantAsientos.getValue() != null) {
-                    cantidadAsientos = ((Number) cantAsientos.getValue()).intValue();
-                    if (cantidadAsientos <= 0) {
+                    int cantidadAsientos;
+                    if (cantAsientos.getValue() != null) {
+                        cantidadAsientos = ((Number) cantAsientos.getValue()).intValue();
+                        if (cantidadAsientos <= 0) {
+                            throw new NumberFormatException();
+                        }
+                    } else {
                         throw new NumberFormatException();
                     }
-                } else {
-                    throw new NumberFormatException();
+
+                    ControladorIngresoMinivan controladorIngresoMinivan = new ControladorIngresoMinivan(VentanaIngresoMinivan.this);
+
+                    try {
+                        controladorIngresoMinivan.ingresoMinivan(matricula, marca, modelo, cantidadAsientos);
+                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Minivan ingresada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (miniVanException e1) {
+                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error al ingresar la minivan: " + e1.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+                        System.out.println("Error al ingresar la minivan: " + e1.darMensaje());
+                    }
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Ingrese un número válido y positivo en cantidad de asientos.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (RemoteException e1) {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error de conexión: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                ControladorIngresoMinivan controladorIngresoMinivan = new ControladorIngresoMinivan(this);
-
-                try {
-                    controladorIngresoMinivan.ingresoMinivan(matricula, marca, modelo, cantidadAsientos);
-                    JOptionPane.showMessageDialog(this, "Minivan ingresada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    
-                } catch (miniVanException e1) {
-                    JOptionPane.showMessageDialog(this, "Error al ingresar la minivan: " + e1.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("Error al ingresar la minivan: " + e1.darMensaje());
-                }
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Ingrese un número válido y positivo en cantidad de asientos.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (RemoteException e1) {
-                JOptionPane.showMessageDialog(this, "Error de conexión: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        Ingresar.setBounds(184, 448, 117, 29);
+        Ingresar.setBounds(113, 448, 117, 29);
         contentPane.add(Ingresar);
 
         // Botón "Cancelar" centrado
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(e -> dispose());
-        btnCancelar.setBounds(530, 448, 117, 29);
-        contentPane.add(btnCancelar);
+        JButton Cancelar = new JButton("Cancelar");
+        Cancelar.addActionListener(e -> dispose());
+        Cancelar.setBounds(530, 448, 117, 29);
+        contentPane.add(Cancelar);
         
         JLabel lblNewLabel = new JLabel("Ingreso de minivan");
-        lblNewLabel.setBounds(335, 27, 216, 16);
+        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        lblNewLabel.setBounds(295, 57, 216, 29);
         contentPane.add(lblNewLabel);
     }
 }
-

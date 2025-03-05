@@ -141,7 +141,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	// INGRESA BOLETO A LA COLECCION DE BOLETOS DEL PASEO PASADO POR EL USUARIO
 	@Override
 	public void ventaBoleto(String codigoBol, String nombre, int edad, int celu, String codigoPas, double descuento,
-			boolean comun) throws paseoException, RemoteException {
+			char tipoBoleto) throws paseoException, RemoteException {
 		monitor.comienzoEscritura();
 		Paseo a = paseos.find(codigoPas);
 		if (a == null) {
@@ -155,7 +155,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 			}
 		}
 
-		if (comun == true) {
+		if (tipoBoleto == 'C') {
 			Boleto C = new Boleto(a.getBoletos().boletosTotales(), nombre, edad, celu, codigoBol);
 			a.getBoletos().insert(C);
 			monitor.terminoEscritura();
@@ -177,7 +177,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		}
 		Paseo a = paseos.find(codigo);
 		monitor.terminoLectura();
-		return a.getBoletos().listarBoletosPorPaseo(codigo, tipoBoleto, paseos);
+		return a.getBoletos().listarBoletosPorPaseo(tipoBoleto);
 
 	}
 

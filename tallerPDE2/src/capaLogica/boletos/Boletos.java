@@ -33,7 +33,7 @@ public class Boletos implements Serializable {
 	public void insert(Boleto boleto) {
 		if (tope < cantidadMax) {
 			boletos[tope] = boleto;
-			tope = tope++;
+			   tope++;
 		}
 
 	}
@@ -67,11 +67,12 @@ public class Boletos implements Serializable {
 		return lista;
 	}
 
-	// Faltan controles de tipo de boleto y orden de los VOBoleto
-	public LinkedList<VOBoleto> listarBoletosPorPaseo(String codigo, char tipoBoleto, Paseos pa) {
+
+	public LinkedList<VOBoleto> listarBoletosPorPaseo(char tipoBoleto) {
 		LinkedList<VOBoleto> VOBoletos = new LinkedList<>();
 
 		for (int i = 0; i < tope; i++) {
+		
 			if (tipoBoleto == boletos[i].tipoBoleto()) {
 				VOBoleto vbol = new VOBoleto(boletos[i].getNumBoleto(), boletos[i].getNombre(), boletos[i].getEdad(),
 						boletos[i].getCelular());

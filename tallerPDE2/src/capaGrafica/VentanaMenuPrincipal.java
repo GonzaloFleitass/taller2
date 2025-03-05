@@ -1,45 +1,50 @@
 package capaGrafica;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
 public class VentanaMenuPrincipal extends JFrame {
-	
-	
+
     public VentanaMenuPrincipal() {
         setTitle("Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000,800); // Tamaño de la ventana
-        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        setSize(1000, 800);
+        setLocationRelativeTo(null);
+  
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panelPrincipal.setBackground(new Color(240, 240, 240)); // Fondo suave
 
-        // Panel principal con GridLayout para organizar los botones
-        JPanel panelPrincipal = new JPanel(new GridLayout(5, 2, 10, 10)); // 5 filas, 2 columnas, espacio entre componentes
-        panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margen exterior
+        JLabel titulo = new JLabel("Menú Principal");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28)); // Fuente limpia y tamaño mayor
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        panelPrincipal.add(titulo, BorderLayout.NORTH);
 
-        // Botones para cada ventana
-        JButton btnIngresoDestino = new JButton("Ingreso de Destino");
-        JButton btnIngresoMinivan = new JButton("Ingreso de Minivan");
-        JButton btnIngresoPaseo = new JButton("Ingreso de Paseo");
-        JButton btnListadoBoletosVendPorPaseo = new JButton("Listado de Boletos Vendidos por Paseo");
-        JButton btnListadoDisponibilidadBoletos = new JButton("Listado de Disponibilidad de Boletos");
-        JButton btnListadoMinivanes = new JButton("Listado de Minivanes");
-        JButton btnListadoPaseosAsignadoMinivan = new JButton("Listado de Paseos Asignados a Minivan");
-        JButton btnListadoPaseosPorDestino = new JButton("Listado de Paseos por Destino");
-        JButton btnMontoRecaudado = new JButton("Monto Recaudado");
-        JButton btnVentaBoleto = new JButton("Venta de Boleto");
+        JPanel panelBotones = new JPanel(new GridLayout(5, 2, 20, 20));
+        panelBotones.setBorder(new EmptyBorder(30, 30, 30, 30));
+        panelBotones.setBackground(new Color(240, 240, 240)); // Fondo suave
 
-        // Agregar acciones a los botones
+        JButton btnIngresoDestino = crearBoton("Ingreso de Destino");
+        JButton btnIngresoMinivan = crearBoton("Ingreso de Minivan");
+        JButton btnIngresoPaseo = crearBoton("Ingreso de Paseo");
+        JButton btnListadoBoletosVendPorPaseo = crearBoton("Listado de Boletos Vendidos por Paseo");
+        JButton btnListadoDisponibilidadBoletos = crearBoton("Listado de Disponibilidad de Boletos");
+        JButton btnListadoMinivanes = crearBoton("Listado de Minivanes");
+        JButton btnListadoPaseosAsignadoMinivan = crearBoton("Listado de Paseos Asignados a Minivan");
+        JButton btnListadoPaseosPorDestino = crearBoton("Listado de Paseos por Destino");
+        JButton btnMontoRecaudado = crearBoton("Monto Recaudado");
+        JButton btnVentaBoleto = crearBoton("Venta de Boleto");
+
         btnIngresoDestino.addActionListener(e -> {
-			try {
-				abrirVentana(new VentanaIngresoDestino());
-			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		});
+            try {
+                abrirVentana(new VentanaIngresoDestino());
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
+        });
         btnIngresoMinivan.addActionListener(e -> abrirVentana(new VentanaIngresoMinivan()));
         btnIngresoPaseo.addActionListener(e -> abrirVentana(new VentanaIngresoPaseo()));
         btnListadoBoletosVendPorPaseo.addActionListener(e -> abrirVentana(new VentanaListadoBoletosVendPorPaseo()));
@@ -50,32 +55,39 @@ public class VentanaMenuPrincipal extends JFrame {
         btnMontoRecaudado.addActionListener(e -> abrirVentana(new VentanaMontoRecaudado()));
         btnVentaBoleto.addActionListener(e -> abrirVentana(new VentanaVentaBoleto()));
 
-        // Agregar botones al panel principal...
-        panelPrincipal.add(btnIngresoDestino);
-        panelPrincipal.add(btnIngresoMinivan);
-        panelPrincipal.add(btnIngresoPaseo);
-        panelPrincipal.add(btnListadoBoletosVendPorPaseo);
-        panelPrincipal.add(btnListadoDisponibilidadBoletos);
-        panelPrincipal.add(btnListadoMinivanes);
-        panelPrincipal.add(btnListadoPaseosAsignadoMinivan);
-        panelPrincipal.add(btnListadoPaseosPorDestino);
-        panelPrincipal.add(btnMontoRecaudado);
-        panelPrincipal.add(btnVentaBoleto);
+        panelBotones.add(btnIngresoDestino);
+        panelBotones.add(btnIngresoMinivan);
+        panelBotones.add(btnIngresoPaseo);
+        panelBotones.add(btnListadoBoletosVendPorPaseo);
+        panelBotones.add(btnListadoDisponibilidadBoletos);
+        panelBotones.add(btnListadoMinivanes);
+        panelBotones.add(btnListadoPaseosAsignadoMinivan);
+        panelBotones.add(btnListadoPaseosPorDestino);
+        panelBotones.add(btnMontoRecaudado);
+        panelBotones.add(btnVentaBoleto);
 
-        // Agregar el panel principal al JFrame
+        panelPrincipal.add(panelBotones, BorderLayout.CENTER);
         add(panelPrincipal);
-
-        // Hacer visible la ventana
         setVisible(true);
     }
 
-  
+    private JButton crearBoton(String texto) {
+        JButton boton = new JButton(texto);
+        boton.setPreferredSize(new Dimension(200, 50)); // Tamaño ajustado
+        boton.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Fuente limpia
+        boton.setBackground(new Color(255, 255, 255)); // Fondo blanco para los botones
+        boton.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(new Color(200, 200, 200)), // Borde gris claro
+                new EmptyBorder(10, 20, 10, 20))); // Margen interno
+        boton.setFocusPainted(false); // Eliminar el borde de enfoque
+        return boton;
+    }
+
     private void abrirVentana(JFrame ventana) {
-        ventana.setVisible(true); // Hacer visible la ventana
+        ventana.setVisible(true);
     }
 
     public static void main(String[] args) {
-        // Ejecutar la ventana principal en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> new VentanaMenuPrincipal());
     }
 }

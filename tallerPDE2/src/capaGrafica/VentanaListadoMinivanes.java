@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaListadoMinivanes extends JFrame {
 
@@ -53,7 +54,7 @@ public class VentanaListadoMinivanes extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("Menu.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		 setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 
@@ -61,19 +62,20 @@ public class VentanaListadoMinivanes extends JFrame {
 		JPanel panelTitulo = new JPanel();
 		contentPane.add(panelTitulo, BorderLayout.NORTH);
 		JLabel lblNewLabel = new JLabel("Listado general de minivanes");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
 		panelTitulo.add(lblNewLabel);
 
 		// Botón "Volver" centrado
 		JPanel panelBoton = new JPanel();
 		contentPane.add(panelBoton, BorderLayout.WEST);
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addActionListener(new ActionListener() {
+		JButton Cancelar = new JButton("Cancelar");
+		Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// agregar la acción para volver a la ventana principal
 				dispose();
 			}
 		});
-		panelBoton.add(btnVolver);
+		panelBoton.add(Cancelar);
 
 		// Tabla centrada con scroll
 		JPanel panelTabla = new JPanel();

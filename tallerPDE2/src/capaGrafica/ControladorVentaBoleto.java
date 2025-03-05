@@ -24,10 +24,10 @@ public class ControladorVentaBoleto{
 
 	
 public void VentBol(String codigoBol, String nombre, int edad, int celu, String codigoPas, double descuento,
-boolean comun)throws RemoteException,paseoException{
+char tipoBoleto)throws RemoteException,paseoException{
 	try {
     	
-        fach.ventaBoleto(nombre, nombre, edad, celu, nombre, descuento, comun);
+        fach.ventaBoleto(codigoBol, nombre, edad, celu, codigoPas, descuento, tipoBoleto);
         
         
        

@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTable;
+import java.awt.Font;
 
 public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 
@@ -41,11 +42,11 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 	public VentanaListadoPaseosAsignadosMinivan() {
 		setTitle("LISTADO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		 setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBackground(UIManager.getColor("List.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		 setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -63,12 +64,14 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Listado de paseos por minivan ");
-		lblNewLabel_1.setBounds(285, 6, 204, 16);
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
+		lblNewLabel_1.setBounds(249, 5, 319, 16);
 		contentPane.add(lblNewLabel_1);
 		
-		JButton btnNewButton_1 = new JButton("Volver");
-		btnNewButton_1.setBounds(0, 1, 117, 29);
-		contentPane.add(btnNewButton_1);
+		JButton Cancelar = new JButton("Cancelar");
+		Cancelar.setBounds(0, 1, 117, 29);
+		contentPane.add(Cancelar);
+		Cancelar.addActionListener(e -> dispose());
 		
 		table = new JTable();
 		table.setBounds(23, 76, 749, 464);

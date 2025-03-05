@@ -12,6 +12,7 @@ import capaLogica.destinos.Destino;
 import capaLogica.destinos.DestinoException;
 import capaLogica.minivanes.VoMinivan;
 import capaLogica.minivanes.miniVanException;
+import capaLogica.boletos.VOBoleto;
 import capaLogica.boletos.boletoException;
 import capaLogica.paseos.VOPaseo;
 import capaLogica.paseos.paseoException;
@@ -52,6 +53,7 @@ public class Cliente {
             fach.insertDestino("Aguas Dulces");
             fach.insertDestino("San Luis");
             fach.insertDestino("Solís Grande");
+            fach.insertDestino("Punta del este");
 
 
             // Insertar minivanes con una colección de paseos vacía
@@ -83,10 +85,10 @@ public class Cliente {
             fach.insertMinivan("MFL420", "Chrysler", "Voyager", 7);
 
             // Insertar paseos con horarios válidos
-            fach.insertPaseo("MLNP12", new Destino("Punta Del Este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 20.99);
+            fach.insertPaseo("MLNP12", new Destino("Punta del este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 20.99);
             fach.insertPaseo("1112", new Destino("Piriapolis"), LocalTime.of(11, 30), LocalTime.of(13, 30), 20.99);
             fach.insertPaseo("1114", new Destino("Piriapolis"), LocalTime.of(16, 0), LocalTime.of(17, 0), 20.99);
-            fach.insertPaseo("2224", new Destino("Punta Del Este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 25.99);
+            fach.insertPaseo("2224", new Destino("Punta del este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 25.99);
 
             // Listar minivanes
             System.out.println("=== Listado de Minivanes ===");
@@ -131,10 +133,20 @@ public class Cliente {
             // Vender boletos
             System.out.println("\n=== Venta de Boletos ===");
             boolean boleto = true;
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 0, boleto); // Boleto común
-            boleto = false;
-            fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "MLNP12", 14, boleto); // Boleto especial
+            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 200, 'C'); // Boleto común
+            boleto = true;
+            fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "MLNP12", 12, 'C'); // Boleto especial
+            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12, 'C');
+            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12,'C');
+            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12, 'E');
 
+            LinkedList<VOBoleto> boletosPorPaseo = fach.listarBoletosPorPaseo("MLNP12", 'C');
+            System.out.println("Boletos para el paseo MLNP12:");
+            for (VOBoleto voBoleto : boletosPorPaseo) {
+                System.out.println(voBoleto.getNombre());
+                System.out.println(voBoleto.getNumBoleto());
+            }
+            
             // Mostrar monto recaudado por paseo
             System.out.println("\n=== Monto Recaudado por Paseo ===");
             System.out.println("Monto recaudado para el paseo MLNP12: " + fach.montoRecaudado("MLNP12"));

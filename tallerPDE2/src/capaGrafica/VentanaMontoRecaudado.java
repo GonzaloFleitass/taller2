@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaMontoRecaudado extends JFrame {
 
@@ -46,20 +47,21 @@ public class VentanaMontoRecaudado extends JFrame {
         contentPane = new JPanel();
         contentPane.setBackground(UIManager.getColor("Menu.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+        setLocationRelativeTo(null);
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("Codigo de Paseo:");
-        lblNewLabel.setBounds(226, 50, 108, 16);
+        lblNewLabel.setBounds(191, 50, 108, 16);
         contentPane.add(lblNewLabel);
         
-        JButton btnNewButton = new JButton("Volver");
-        btnNewButton.setBounds(6, 0, 117, 29);
-        contentPane.add(btnNewButton);
+        JButton Cancelar = new JButton("Cancelar");
+        Cancelar.setBounds(6, 0, 117, 29);
+        contentPane.add(Cancelar);
+        Cancelar.addActionListener(e -> dispose());
         
         textField = new JTextField();
-        textField.setBounds(355, 45, 130, 26);
+        textField.setBounds(336, 45, 130, 26);
         contentPane.add(textField);
         textField.setColumns(10);
         
@@ -79,22 +81,24 @@ public class VentanaMontoRecaudado extends JFrame {
                 try {
                     // Llamo al controlador para obtener el monto recaudado
                     ControladorMontoRecaudado controlador = new ControladorMontoRecaudado(VentanaMontoRecaudado.this);
-                    controlador.MontoRec(codigoPaseo); // Llamo al método que se encarga de obtener el monto
+                    double monto = controlador.MontoRec(codigoPaseo); // Obtengo el monto recaudado
+                    textField_1.setText(String.valueOf(monto)); // Convierte el valor double a String
+                    
                 } catch (paseoException ex) {
                     ex.printStackTrace();
                 } catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+                    e1.printStackTrace();
+                }
             }
         });
+
         Buscar.setBounds(510, 45, 117, 29);
         contentPane.add(Buscar);
+        
+        JLabel lblNewLabel_2 = new JLabel("Monto Recaudado de un paseo");
+        lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 18));
+        lblNewLabel_2.setBounds(254, 4, 360, 16);
+        contentPane.add(lblNewLabel_2);
     }
-    
-    // Método para actualizar el campo de texto con el monto recaudado
-    public void actualizarMonto(String monto) {
-        textField_1.setText(monto); // Actualiza el campo de texto con el monto
     }
-}
 
