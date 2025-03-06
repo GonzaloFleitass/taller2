@@ -80,6 +80,9 @@ public class Minivanes implements Serializable {
 	    }
 	    return null;
 	}
+	public TreeMap<String, Minivan> getMinivans() {
+		return Minivanes;
+	}
 
 }
 

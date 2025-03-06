@@ -24,7 +24,7 @@ public interface Ifachada extends Remote {
 
 
 	// Lista las minivanes
-	public LinkedList<VoMinivan> listadoMinivanes() throws RemoteException ;
+	LinkedList<VoMinivan> listadoMinivanes() throws RemoteException ;
 
 
 	void insertPaseo(String cod, Destino dest, LocalTime hpart, LocalTime hllega, Double prec)
@@ -56,7 +56,6 @@ public interface Ifachada extends Remote {
 	void insertMinivan(String matricula, String marca, String modelo, int cantAsientos)
 			throws InterruptedException, miniVanException, RemoteException;
 
-
-	public LinkedList<String> getDestinos() throws DestinoException, RemoteException;
+    LinkedList<String> getDestinos() throws DestinoException, RemoteException;
 
 }

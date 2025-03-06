@@ -1,70 +1,63 @@
 package capaGrafica;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import capaLogica.boletos.VOBoleto;
 import capaLogica.paseos.paseoException;
-import javax.swing.UIManager;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
-import javax.swing.JTable;
 import java.awt.Font;
 
 public class VentanaListadoBoletosVendPorPaseo extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
+    private static VentanaListadoBoletosVendPorPaseo instancia; // Instancia única (Singleton)
     private JTextField textFieldCodigo;
     private JTable table;
     private JCheckBox TipoBoleto;
-    private ControladorListadoBoletosVendPorPaseo controlador; // Asociamos el controlador
+    private ControladorListadoBoletosVendPorPaseo controlador;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    VentanaListadoBoletosVendPorPaseo frame = new VentanaListadoBoletosVendPorPaseo();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    // Constructor privado para evitar instanciación directa
+    private VentanaListadoBoletosVendPorPaseo() {
+        configurarVentana();
+        // Asociar el controlador a esta ventana
+        controlador = new ControladorListadoBoletosVendPorPaseo(this);
+        inicializarComponentes();
     }
 
-    /**
-     * Constructor de la ventana.
-     */
-    public VentanaListadoBoletosVendPorPaseo() {
+    // Método estático para obtener la instancia única
+    public static VentanaListadoBoletosVendPorPaseo getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaListadoBoletosVendPorPaseo();
+        }
+        return instancia;
+    }
+
+    // Configuración básica de la ventana
+    private void configurarVentana() {
         setTitle("Listado de Boletos Vendidos por Paseo");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
         setBounds(100, 100, 800, 600);
-        setLocationRelativeTo(null);
-        contentPane = new JPanel();
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+    }
+
+    // Inicialización de los componentes de la ventana
+    private void inicializarComponentes() {
+        // Panel principal con GridLayout
+        JPanel contentPane = new JPanel();
         contentPane.setBackground(UIManager.getColor("Menu.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
         contentPane.setLayout(null);
+        setContentPane(contentPane);
 
         // Botón Volver
-        JButton Cancelar = new JButton("Cancelar");
-        Cancelar.setBounds(6, 10, 117, 29);
-        Cancelar.addActionListener(e -> dispose());
-        contentPane.add(Cancelar);
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBounds(6, 10, 117, 29);
+        btnCancelar.addActionListener(e -> dispose());
+        contentPane.add(btnCancelar);
 
         // Título
         JLabel lblTitulo = new JLabel("Listado de boletos vendidos por paseo");
@@ -92,7 +85,30 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         btnBuscar.setBounds(476, 77, 117, 29);
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                buscarBoletos();
+                try {
+                    String codigo = textFieldCodigo.getText().trim();
+                    if (codigo.isEmpty()) {
+                        JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "Por favor ingrese un código de paseo.", 
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    char tipoBoleto = TipoBoleto.isSelected() ? 'E' : 'C'; // 'E' para especial, 'C' para común
+
+                    // Obtener la lista de boletos desde el controlador
+                    LinkedList<VOBoleto> listaBoletos = controlador.ListarBolVenPas(codigo, tipoBoleto);
+                    if (listaBoletos.isEmpty()) {
+                        JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "No se encontraron boletos para el código de paseo ingresado.", 
+                                "Información", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        mostrarBoletosEnTabla(listaBoletos);
+                    }
+
+                } catch (RemoteException | paseoException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "Error de conexión al obtener el listado de boletos.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         contentPane.add(btnBuscar);
@@ -102,39 +118,6 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(42, 155, 700, 400);
         contentPane.add(scrollPane);
-
-        // Asociar el controlador a esta ventana
-        controlador = new ControladorListadoBoletosVendPorPaseo(this);
-    }
-
-    /**
-     * Método para buscar y mostrar los boletos vendidos en la tabla.
-     */
-    private void buscarBoletos() {
-        try {
-            String codigo = textFieldCodigo.getText().trim();
-            if (codigo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor ingrese un código de paseo.", 
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            char tipoBoleto = TipoBoleto.isSelected() ? 'E' : 'C'; // 'E' para especial, 'C' para común
-
-            // Obtener la lista de boletos desde el controlador
-            LinkedList<VOBoleto> listaBoletos = controlador.ListarBolVenPas(codigo, tipoBoleto);
-            if (listaBoletos.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No se encontraron boletos para el código de paseo ingresado.", 
-                        "Información", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                mostrarBoletosEnTabla(listaBoletos);
-            }
-
-        } catch (RemoteException | paseoException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error de conexión al obtener el listado de boletos.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
@@ -163,5 +146,16 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
         }
         table.setModel(model);
     }
-}
 
+    // Método principal para probar la ventana
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                VentanaListadoBoletosVendPorPaseo frame = VentanaListadoBoletosVendPorPaseo.getInstancia(); // Obtener la instancia
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+}

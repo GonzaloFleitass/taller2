@@ -8,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.time.LocalTime;
 import java.util.LinkedList;
+import java.util.Random;
 
 import capaLogica.Ifachada;
 import capaLogica.destinos.Destino;
@@ -23,153 +24,82 @@ import capaPersistencia.PersistenciaException;
 public class Cliente {
     public static void main(String[] args) throws DestinoException, paseoException, boletoException, InterruptedException, miniVanException {
         try {
-            // Conectar con la fachada remota
             Ifachada fach = (Ifachada) Naming.lookup("//localhost:1099/fachada");
 
-            // Insertar destinos
-            fach.insertDestino("Montevideo");
-            fach.insertDestino("Colonia del Sacramento");
-            fach.insertDestino("Cabo Polonio");
-            fach.insertDestino("La Paloma");
-            fach.insertDestino("Carmelo");
-            fach.insertDestino("José Ignacio");
-            fach.insertDestino("Termas de Arapey");
-            fach.insertDestino("Termas de Salto Grande");
-            fach.insertDestino("Parque Nacional Santa Teresa");
-            fach.insertDestino("Isla Gorriti");
-            fach.insertDestino("Punta Ballena");
-            fach.insertDestino("Playa Unión");
-            fach.insertDestino("Valizas");
-            fach.insertDestino("La Pedrera");
-            fach.insertDestino("Rocha");
-            fach.insertDestino("Tacuarembó");
-            fach.insertDestino("Durazno");
-            fach.insertDestino("Fray Bentos");
-            fach.insertDestino("San Gregorio de Polanco");
-            fach.insertDestino("Atlántida");
-            fach.insertDestino("Barra de Valizas");
-            fach.insertDestino("Punta del Diablo");
-            fach.insertDestino("Villa Serrana");
-            fach.insertDestino("Villa Rodriguez");
-            fach.insertDestino("Las Cañas");
-            fach.insertDestino("Cuchilla Alta");
-            fach.insertDestino("Aguas Dulces");
-            fach.insertDestino("San Luis");
-            fach.insertDestino("Solís Grande");
-            fach.insertDestino("Punta del este");
-
-
-            // Insertar minivanes con una colección de paseos vacía
-            fach.insertMinivan("MFL395", "Honda", "Odyssey", 8);
-            fach.insertMinivan("MFL396", "Chrysler", "Pacifica", 7);
-            fach.insertMinivan("MFL397", "Kia", "Carnival", 8);
-            fach.insertMinivan("MFL398", "Nissan", "NV3500", 9);
-            fach.insertMinivan("MFL399", "Dodge", "Grand Caravan", 7);
-            fach.insertMinivan("MFL400", "Mazda", "5", 6);
-            fach.insertMinivan("MFL401", "Volkswagen", "Sharan", 8);
-            fach.insertMinivan("MFL402", "Ford", "Transit Connect", 7);
-            fach.insertMinivan("MFL403", "Toyota", "Sienna", 8);
-            fach.insertMinivan("MFL404", "Hyundai", "Palisade", 7);
-            fach.insertMinivan("MFL405", "Chevrolet", "Traverse", 8);
-            fach.insertMinivan("MFL406", "Renault", "Espace", 7);
-            fach.insertMinivan("MFL407", "Peugeot", "5008", 7);
-            fach.insertMinivan("MFL408", "BMW", "Series 2 Gran Tourer", 6);
-            fach.insertMinivan("MFL409", "Mercedes", "V-Class", 9);
-            fach.insertMinivan("MFL410", "Citroën", "Grand C4 Picasso", 7);
-            fach.insertMinivan("MFL411", "Opel", "Zafira", 7);
-            fach.insertMinivan("MFL412", "Seat", "Alhambra", 8);
-            fach.insertMinivan("MFL413", "Land Rover", "Discovery", 7);
-            fach.insertMinivan("MFL414", "Peugeot", "Traveller", 9);
-            fach.insertMinivan("MFL415", "Toyota", "Proace Verso", 8);
-            fach.insertMinivan("MFL416", "Ford", "Galaxy", 7);
-            fach.insertMinivan("MFL417", "Volkswagen", "Caravelle", 9);
-            fach.insertMinivan("MFL418", "Nissan", "Elgrand", 8);
-            fach.insertMinivan("MFL419", "Kia", "Venga", 6);
-            fach.insertMinivan("MFL420", "Chrysler", "Voyager", 7);
-
-            // Insertar paseos con horarios válidos
-            fach.insertPaseo("MLNP12", new Destino("Punta del este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 20.99);
-            fach.insertPaseo("1112", new Destino("Piriapolis"), LocalTime.of(11, 30), LocalTime.of(13, 30), 20.99);
-            fach.insertPaseo("1114", new Destino("Piriapolis"), LocalTime.of(16, 0), LocalTime.of(17, 0), 20.99);
-            fach.insertPaseo("2224", new Destino("Punta del este"), LocalTime.of(14, 0), LocalTime.of(15, 0), 25.99);
-
-            // Listar minivanes
-            System.out.println("=== Listado de Minivanes ===");
-            try {
-                LinkedList<VoMinivan> minivanes = fach.listadoMinivanes();
-                for (VoMinivan mini : minivanes) {
-                    mini.printVOMinivan();
-                }
-            } catch (RemoteException e) {
-                System.err.println("Error al listar minivanes: " + e.getMessage());
-                e.printStackTrace();
+            // Insertar 20 destinos turísticos en Uruguay
+            String[] destinos = {
+                "Montevideo", "Colonia del Sacramento", "Cabo Polonio", "La Paloma", "Carmelo",
+                "José Ignacio", "Termas del Daymán", "Termas de Arapey", "Parque Nacional Santa Teresa",
+                "Piriápolis", "Isla Gorriti", "Punta del Este", "Valizas", "La Pedrera", "Rocha",
+                "Tacuarembó", "Durazno", "Fray Bentos", "San Gregorio de Polanco", "Atlántida"
+            };
+            for (String destino : destinos) {
+                fach.insertDestino(destino);
             }
 
-            // Listar paseos por minivan
-            System.out.println("\n=== Listado de Paseos por Minivan (MFL392) ===");
-            try {
-                LinkedList<VOPaseo> paseosMinivan = fach.listarPaseosPorMinivan("MFL392");
-                if (paseosMinivan.isEmpty()) {
-                    System.out.println("No hay paseos asignados a la minivan MFL392.");
-                } else {
-                    for (VOPaseo paseo : paseosMinivan) {
-                        paseo.printVOPaseo();
-                    }
-                }
-            } catch (RemoteException | miniVanException e) {
-                System.err.println("Error al listar paseos por minivan: " + e.getMessage());
-                e.printStackTrace();
+            // Insertar 100 minivans con modelos específicos: A1, A2, A3, C1, C2, C3, B1, B2, B3
+            Random random = new Random();
+            String[] modelos = {"A1", "A2", "A3", "C1", "C2", "C3", "B1", "B2", "B3"};
+            for (int i = 0; i < 70; i++) {
+                String matricula = "MFL" + (421 + i);
+                String marca = (i % 2 == 0) ? "Mercedes" : "Volkswagen";
+                String modelo = modelos[random.nextInt(modelos.length)]; // Modelo aleatorio entre A1, A2, A3, C1, C2, C3, B1, B2, B3
+                int capacidad = 8 + random.nextInt(5); // Capacidad entre 8 y 12
+                fach.insertMinivan(matricula, marca, modelo, capacidad);
+            }
+
+            // Insertar 300 paseos
+            for (int i = 0; i < 300; i++) {
+                String codigoPaseo = "P" + (2222 + i);
+                Destino destino = new Destino(destinos[random.nextInt(destinos.length)]);
+                LocalTime horaSalida = LocalTime.of(random.nextInt(24), random.nextInt(60));
+                LocalTime horaLlegada = horaSalida.plusHours(random.nextInt(5) + 1); // Duración entre 1 y 5 horas
+                double precio = 20.0 + random.nextDouble() * 30.0; // Precio entre 20 y 50
+                fach.insertPaseo(codigoPaseo, destino, horaSalida, horaLlegada, precio);
+            }
+
+            // Listar minivans
+            System.out.println("=== Listado de Minivans ===");
+            LinkedList<VoMinivan> minivanesList = fach.listadoMinivanes();
+            for (VoMinivan mini : minivanesList) {
+                mini.printVOMinivan();
             }
 
             // Listar paseos con boletos disponibles
-            System.out.println("\n=== Listado de Paseos con Boletos Disponibles (Cantidad >= 1) ===");
-            try {
-                LinkedList<VOPaseo> paseosDisponibles = fach.listarPaseosDispBoletos(1);
-                for (VOPaseo paseo : paseosDisponibles) {
-                    paseo.printVOPaseo();
-                }
-            } catch (RemoteException | boletoException e) {
-                System.err.println("Error al listar paseos disponibles: " + e.getMessage());
-                e.printStackTrace();
+            System.out.println("\n=== Listado de Paseos con Boletos Disponibles ===");
+            LinkedList<VOPaseo> paseosDisponibles = fach.listarPaseosDispBoletos(1);
+            for (VOPaseo paseo : paseosDisponibles) {
+                paseo.printVOPaseo();
             }
 
-            // Vender boletos
+            // Vender 600 boletos
             System.out.println("\n=== Venta de Boletos ===");
-            boolean boleto = true;
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 200, 'C'); // Boleto común
-            boleto = true;
-            fach.ventaBoleto("MLNP15", "Laura", 28, 5021, "MLNP12", 12, 'C'); // Boleto especial
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12, 'C');
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12,'C');
-            fach.ventaBoleto("MLNP14", "Carlos", 30, 4021, "MLNP12", 12, 'E');
-
-            LinkedList<VOBoleto> boletosPorPaseo = fach.listarBoletosPorPaseo("MLNP12", 'C');
-            System.out.println("Boletos para el paseo MLNP12:");
-            for (VOBoleto voBoleto : boletosPorPaseo) {
-                System.out.println(voBoleto.getNombre());
-                System.out.println(voBoleto.getNumBoleto());
+            for (int i = 0; i < 600; i++) {
+                String cedula = "MLNP" + (16 + i);
+                String nombre = "Cliente" + (i + 1);
+                int edad = 18 + random.nextInt(50); // Edad entre 18 y 67
+                int numeroAsiento = 1000 + i;
+                String codigoPaseo = "P" + (2222 + random.nextInt(300)); // Paseo aleatorio
+                double precio = 20.0 + random.nextDouble() * 30.0; // Precio entre 20 y 50
+                char tipoBoleto = (i % 2 == 0) ? 'C' : 'E'; // Alternar entre 'C' (común) y 'E' (especial)
+                fach.ventaBoleto(cedula, nombre, edad, numeroAsiento, codigoPaseo, precio, tipoBoleto);
             }
-            
+
             // Mostrar monto recaudado por paseo
             System.out.println("\n=== Monto Recaudado por Paseo ===");
-            System.out.println("Monto recaudado para el paseo MLNP12: " + fach.montoRecaudado("MLNP12"));
-            System.out.println("Monto recaudado para el paseo 1112: " + fach.montoRecaudado("1112"));
+            for (int i = 0; i < 300; i++) {
+                String codigoPaseo = "P" + (2222 + i);
+                System.out.println("Monto recaudado para el paseo " + codigoPaseo + ": " + fach.montoRecaudado(codigoPaseo));
+            }
+
+            // Respaldar información
             try {
-				fach.respaldar();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (PersistenciaException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                fach.respaldar();
+            } catch (PersistenciaException | IOException e) {
+                e.printStackTrace();
+            }
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
-       
     }
-    
 }

@@ -45,20 +45,21 @@ public class VentanaMenuPrincipal extends JFrame {
 
         btnIngresoDestino.addActionListener(e -> {
             try {
-                abrirVentana(new VentanaIngresoDestino());
+                VentanaIngresoDestino ventanaDestino = VentanaIngresoDestino.getInstancia();
+                ventanaDestino.setVisible(true);
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
         });
-        btnIngresoMinivan.addActionListener(e -> abrirVentana(new VentanaIngresoMinivan()));
-        btnIngresoPaseo.addActionListener(e -> abrirVentana(new VentanaIngresoPaseo()));
-        btnListadoBoletosVendPorPaseo.addActionListener(e -> abrirVentana(new VentanaListadoBoletosVendPorPaseo()));
-        btnListadoDisponibilidadBoletos.addActionListener(e -> abrirVentana(new VentanaListadoDisponibilidadBoletos()));
-        btnListadoMinivanes.addActionListener(e -> abrirVentana(new VentanaListadoMinivanes()));
-        btnListadoPaseosAsignadoMinivan.addActionListener(e -> abrirVentana(new VentanaListadoPaseosAsignadosMinivan()));
-        btnListadoPaseosPorDestino.addActionListener(e -> abrirVentana(new VentanaListadoPaseosPorDestino()));
-        btnMontoRecaudado.addActionListener(e -> abrirVentana(new VentanaMontoRecaudado()));
-        btnVentaBoleto.addActionListener(e -> abrirVentana(new VentanaVentaBoleto()));
+        btnIngresoMinivan.addActionListener(e -> abrirVentana(VentanaIngresoMinivan.getInstancia()));
+        btnIngresoPaseo.addActionListener(e -> abrirVentana(VentanaIngresoPaseo.getInstancia()));
+        btnListadoBoletosVendPorPaseo.addActionListener(e -> abrirVentana(VentanaListadoBoletosVendPorPaseo.getInstancia()));
+        btnListadoDisponibilidadBoletos.addActionListener(e -> abrirVentana(VentanaListadoDisponibilidadBoletos.getInstancia()));
+        btnListadoMinivanes.addActionListener(e -> abrirVentana(VentanaListadoMinivanes.getInstancia()));
+        btnListadoPaseosAsignadoMinivan.addActionListener(e -> abrirVentana(VentanaListadoPaseosAsignadosMinivan.getInstancia()));
+        btnListadoPaseosPorDestino.addActionListener(e -> abrirVentana(VentanaListadoPaseosPorDestino.getInstancia()));
+        btnMontoRecaudado.addActionListener(e -> abrirVentana(VentanaMontoRecaudado.getInstancia()));
+        btnVentaBoleto.addActionListener(e -> abrirVentana(VentanaVentaBoleto.getInstancia()));
         
         JMenuBar menuBar = new JMenuBar();
         getContentPane().add(menuBar, BorderLayout.NORTH);
@@ -72,6 +73,7 @@ public class VentanaMenuPrincipal extends JFrame {
         		ControladorRespaldar controlador = new ControladorRespaldar(VentanaMenuPrincipal.this);
         		try {
 					controlador.respaldar();
+					 JOptionPane.showMessageDialog(VentanaMenuPrincipal.this, "Guardado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 				} catch (RemoteException | PersistenciaException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -117,11 +117,13 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	@Override
 	public LinkedList<VOPaseo> listarPaseosPorDestinos(Destino destino) throws paseoException, RemoteException {
 		monitor.comienzoLectura();
+	
 		if (paseos.listarPaseosPorDestino(destino, minivanes) == null) {
 			monitor.terminoLectura();
 			throw new paseoException("Error- no existen paseos para ese destino");
 		}
 		monitor.terminoLectura();
+		
 		return paseos.listarPaseosPorDestino(destino, minivanes);
 
 	}
@@ -196,11 +198,13 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	
 	@Override
 	public void insertDestino(String des) throws DestinoException, RemoteException{
+		monitor.comienzoLectura();
 		if(destinos.member(des) == true) {
 			throw new DestinoException("Error, Ya existe Destino");
 		}
 		Destino dest = new Destino(des);
 		destinos.insert(dest);
+		monitor.terminoLectura();
 	}
 	
 	@Override
@@ -216,7 +220,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		p.load (new FileInputStream (nomArch));
 		persistencia P = new persistencia();
 		String nomArchivo = p.getProperty("nomarchivo");
-		VOPersistencia voPer = new VOPersistencia(minivanes, paseos);
+		VOPersistencia voPer = new VOPersistencia(minivanes, paseos,destinos);
 		P.respaldar(nomArchivo, voPer);
 		monitor.terminoLectura();
 
@@ -233,13 +237,12 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		VOPersistencia voPer = P.recuperar(nomArchivo);
 		minivanes = voPer.getMinivanes();
 		paseos = voPer.getPaseos();
+		destinos = voPer.getDestinos();
 		monitor.terminoEscritura();
+		
 	}
 
-
-
 	
-		
 	}
 
 

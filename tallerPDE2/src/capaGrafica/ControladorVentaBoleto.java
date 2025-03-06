@@ -31,7 +31,7 @@ char tipoBoleto)throws RemoteException,paseoException{
         
         
        
-    } catch (Exception e) {
+    } catch (paseoException e) {
         e.printStackTrace();
 
     	}

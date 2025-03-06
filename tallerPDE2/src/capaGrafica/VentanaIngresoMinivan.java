@@ -1,48 +1,55 @@
 package capaGrafica;
 
 import java.awt.EventQueue;
-import java.text.NumberFormat;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import capaLogica.minivanes.miniVanException;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
+import java.text.NumberFormat;
+import capaLogica.minivanes.miniVanException;
 
 public class VentanaIngresoMinivan extends JFrame {
 
-    private static final long serialVersionUID = 1L;
+    private static VentanaIngresoMinivan instancia; // Instancia única (Singleton)
     private JPanel contentPane;
     private JTextField Matricula;
     private JTextField Marca;
     private JTextField Modelo;
     private JFormattedTextField cantAsientos;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                VentanaIngresoMinivan frame = new VentanaIngresoMinivan();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+    // Constructor privado para evitar la creación directa de instancias
+    private VentanaIngresoMinivan() {
+        configurarVentana();
+        inicializarComponentes();
     }
 
-    public VentanaIngresoMinivan() {
-        setTitle("INGRESO");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // Método estático para obtener la instancia única
+    public static VentanaIngresoMinivan getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaIngresoMinivan();
+        }
+        return instancia;
+    }
+
+    // Configuración básica de la ventana
+    private void configurarVentana() {
+        setTitle("Ingreso de Minivan");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
         setBounds(100, 100, 800, 600);
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+    }
+
+    // Inicialización de los componentes de la ventana
+    private void inicializarComponentes() {
         contentPane = new JPanel();
         contentPane.setBackground(UIManager.getColor("Menu.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        setLocationRelativeTo(null);
 
-        // Etiquetas centradas
-        
+        // Etiquetas
         JLabel lblMatricula = new JLabel("Matrícula");
         lblMatricula.setBounds(160, 124, 61, 16);
         contentPane.add(lblMatricula);
@@ -59,7 +66,7 @@ public class VentanaIngresoMinivan extends JFrame {
         lblCantAsientos.setBounds(160, 367, 153, 16);
         contentPane.add(lblCantAsientos);
 
-        // Campos de texto centrados
+        // Campos de texto
         Matricula = new JTextField();
         Matricula.setBounds(335, 119, 130, 26);
         contentPane.add(Matricula);
@@ -82,61 +89,67 @@ public class VentanaIngresoMinivan extends JFrame {
         cantAsientos.setBounds(372, 362, 61, 26);
         contentPane.add(cantAsientos);
 
-        // Botón "Ingresar" centrado
+        // Botón "Ingresar"
         JButton Ingresar = new JButton("Ingresar");
         Ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    String matricula = Matricula.getText().trim();
-                    String marca = Marca.getText().trim();
-                    String modelo = Modelo.getText().trim();
+                String matricula = Matricula.getText().trim();
+                String marca = Marca.getText().trim();
+                String modelo = Modelo.getText().trim();
 
-                    if (matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty()) {
-                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty()) {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int cantidadAsientos;
+                if (cantAsientos.getValue() != null) {
+                    cantidadAsientos = ((Number) cantAsientos.getValue()).intValue();
+                    if (cantidadAsientos <= 0) {
+                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "La cantidad de asientos debe ser positiva.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+                } else {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Ingrese un número válido en cantidad de asientos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-                    int cantidadAsientos;
-                    if (cantAsientos.getValue() != null) {
-                        cantidadAsientos = ((Number) cantAsientos.getValue()).intValue();
-                        if (cantidadAsientos <= 0) {
-                            throw new NumberFormatException();
-                        }
-                    } else {
-                        throw new NumberFormatException();
-                    }
-
+                try {
                     ControladorIngresoMinivan controladorIngresoMinivan = new ControladorIngresoMinivan(VentanaIngresoMinivan.this);
-
-                    try {
-                        controladorIngresoMinivan.ingresoMinivan(matricula, marca, modelo, cantidadAsientos);
-                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Minivan ingresada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-                    } catch (miniVanException e1) {
-                        JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error al ingresar la minivan: " + e1.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
-                        System.out.println("Error al ingresar la minivan: " + e1.darMensaje());
-                    }
-
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Ingrese un número válido y positivo en cantidad de asientos.", "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (RemoteException e1) {
-                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error de conexión: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    controladorIngresoMinivan.ingresoMinivan(matricula, marca, modelo, cantidadAsientos);
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Minivan ingresada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } catch (miniVanException ex) {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error al ingresar la minivan: " + ex.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (RemoteException ex) {
+                    JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Error de conexión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         Ingresar.setBounds(113, 448, 117, 29);
         contentPane.add(Ingresar);
 
-        // Botón "Cancelar" centrado
+        // Botón "Cancelar"
         JButton Cancelar = new JButton("Cancelar");
         Cancelar.addActionListener(e -> dispose());
         Cancelar.setBounds(530, 448, 117, 29);
         contentPane.add(Cancelar);
-        
-        JLabel lblNewLabel = new JLabel("Ingreso de minivan");
+
+        // Título de la ventana
+        JLabel lblNewLabel = new JLabel("Ingreso de Minivan");
         lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
         lblNewLabel.setBounds(295, 57, 216, 29);
         contentPane.add(lblNewLabel);
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                VentanaIngresoMinivan frame = new VentanaIngresoMinivan();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

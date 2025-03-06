@@ -22,7 +22,7 @@ public class VentanaMontoRecaudado extends JFrame {
     private JPanel contentPane;
     private JTextField textField;
     private JTextField textField_1;
-
+    private static VentanaMontoRecaudado instancia;
     /**
      * Launch the application.
      */
@@ -30,7 +30,7 @@ public class VentanaMontoRecaudado extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    VentanaMontoRecaudado frame = new VentanaMontoRecaudado();
+                    VentanaMontoRecaudado frame =VentanaMontoRecaudado.getInstancia();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -38,7 +38,13 @@ public class VentanaMontoRecaudado extends JFrame {
             }
         });
     }
-
+    // Método estático para obtener la instancia única
+    public static VentanaMontoRecaudado getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaMontoRecaudado();
+        }
+        return instancia;
+    }
   
     public VentanaMontoRecaudado() {
         setTitle("MONTO RECAUDADO");

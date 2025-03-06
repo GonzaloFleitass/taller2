@@ -27,12 +27,13 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
     private JComboBox<String> Destinos;
     private JTable table;
     private ControladorListarPaseosPorDestino controladorListarPaseosPorDestino;
+    private static VentanaListadoPaseosPorDestino instancia;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    VentanaListadoPaseosPorDestino frame = new VentanaListadoPaseosPorDestino();
+                    VentanaListadoPaseosPorDestino frame =VentanaListadoPaseosPorDestino.getInstancia();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -40,16 +41,32 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
             }
         });
     }
-
+    
     public VentanaListadoPaseosPorDestino() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        configurarVentana();
+        controladorListarPaseosPorDestino = new ControladorListarPaseosPorDestino(this);
+        cargarDestinos();
+    }
+    
+    // Método estático para obtener la instancia única
+    public static VentanaListadoPaseosPorDestino getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaListadoPaseosPorDestino();
+        }
+        return instancia;
+    }
+    
+    private void configurarVentana() {
+        setTitle("Listado de paseos por destino");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
+        setSize(800, 600);
+        setLocationRelativeTo(null); // Centrar en pantalla
         contentPane = new JPanel();
         contentPane.setBackground(UIManager.getColor("Panel.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        setLocationRelativeTo(null);
+
         JLabel lblDestinos = new JLabel("Destinos");
         lblDestinos.setBounds(225, 43, 61, 16);
         contentPane.add(lblDestinos);
@@ -57,20 +74,6 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
         Destinos = new JComboBox<>();
         Destinos.setBounds(327, 38, 141, 29);
         contentPane.add(Destinos);
-        
-        controladorListarPaseosPorDestino = new ControladorListarPaseosPorDestino(this);
-
-        // Cargar destinos en el JComboBox
-        try {
-            LinkedList<String> destinos = controladorListarPaseosPorDestino.getListaDestinos();
-            if (destinos != null) {
-                for (String destino : destinos) {
-                    Destinos.addItem(destino);
-                }
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
 
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(new ActionListener() {
@@ -79,11 +82,7 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
                 if (destinoSeleccionado != null) {
                     try {
                         Destino destino = new Destino(destinoSeleccionado);
-                   
                         LinkedList<VOPaseo> paseosPorDestino = controladorListarPaseosPorDestino.ListarPasPorDestino(destino);
-                     // Debug: Verificar qué devuelve el método
-                        System.out.println("Paseos encontrados: " + paseosPorDestino);
-
                         if (paseosPorDestino != null && !paseosPorDestino.isEmpty()) {
                             mostrarListadoEnTabla(paseosPorDestino);
                         } else {
@@ -120,6 +119,20 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
         lblListadoPaseos.setFont(new Font("Arial", Font.BOLD, 18));
         lblListadoPaseos.setBounds(253, 4, 351, 16);
         contentPane.add(lblListadoPaseos);
+    }
+
+    private void cargarDestinos() {
+        try {
+            LinkedList<String> destinos = controladorListarPaseosPorDestino.getListaDestinos();
+            if (destinos != null) {
+                for (String destino : destinos) {
+                    Destinos.addItem(destino);
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar los destinos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void mostrarListadoEnTabla(LinkedList<VOPaseo> paseosPorDestino) {

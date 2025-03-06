@@ -31,8 +31,8 @@ public class ControladorListarPaseosPorDestino{
 public LinkedList <VOPaseo> ListarPasPorDestino(Destino dest)throws RemoteException,paseoException{
 	try {
 		
-		Destino des= new Destino("Punta del este");
-       return  fach.listarPaseosPorDestinos(des);
+		
+       return  fach.listarPaseosPorDestinos(dest);
         
        
     } catch (Exception e) {

@@ -34,31 +34,46 @@ public class Paseos implements Serializable {
 	public LinkedList<VOPaseo> listarPaseosPorDestino(Destino des, Minivanes mini) {
 	    LinkedList<VOPaseo> voPaseos = new LinkedList<>();
 
-	    for (Paseo pas : Paseos.values()) {
-	    	//verifica si el destino dado por el usuario es igual al destino del paseo actual
-	        if (des.equals(pas.getDestino())) {
-	        	//si lo encuentra asigna la minivan que tiene ese destino
-	            Minivan miniv = mini.find(pas.getMatricula());
 
+	    // Recorrer todas las minivans en el TreeMap
+	    for (Minivan miniv : mini.getMinivans().values()) { // Obtener los valores (Minivan) del TreeMap
+	      
+
+	        // Obtener los paseos asociados a esta minivan
+	        Paseos paseosDeMinivan = miniv.getPaseosAsignados(); // Asume que Minivan tiene un método getPaseosAsignados()
+	        if (paseosDeMinivan == null || paseosDeMinivan.getPaseos().isEmpty()) {
 	           
-	            int maxBoletos = pas.cantMaxBoletos(miniv) ;
-	            int boletosDisp =  pas.cantBolDisp(miniv) ;
+	            continue; // Saltar a la siguiente minivan
+	        }
 
-	            VOPaseo vpas = new VOPaseo(
-	                pas.getCodigo(),
-	                pas.getDestino(),
-	                pas.getHoraPartida(),
-	                pas.getHoraLlegada(),
-	                pas.getPrecioBase(),
-	                maxBoletos,
-	                boletosDisp
-	            );
-	            voPaseos.add(vpas);
+	        // Recorrer los paseos de esta minivan
+	        for (Paseo pas : paseosDeMinivan.getPaseos().values()) { // Obtener los valores (Paseo) del TreeMap
+	            // Verificar si el destino coincide
+	        	if (pas.getDestino().getNombre().equals(des.getNombre())) {
+	                System.out.println("Paseo encontrado: " + pas.getCodigo()); // Debug
+
+	                // Calcular la cantidad máxima de boletos y los boletos disponibles
+	                int maxBoletos = pas.cantMaxBoletos(miniv);
+	                int boletosDisp = pas.cantBolDisp(miniv);
+
+	                // Crear el objeto VOPaseo y agregarlo a la lista
+	                VOPaseo vpas = new VOPaseo(
+	                    pas.getCodigo(),
+	                    pas.getDestino(),
+	                    pas.getHoraPartida(),
+	                    pas.getHoraLlegada(),
+	                    pas.getPrecioBase(),
+	                    maxBoletos,
+	                    boletosDisp
+	                );
+	                voPaseos.add(vpas);
+	            }
 	        }
 	    }
+
+	    System.out.println("Paseos encontrados: " + voPaseos.size()); // Debug
 	    return voPaseos;
 	}
-
 	// Método que lista los paseos disponibles con una cantidad mínima de boletos
 	public LinkedList<VOPaseo> listadoPaseosDispoBoletos(int boletos, Minivanes mini) {
 		Iterator<Paseo> iter = Paseos.values().iterator();

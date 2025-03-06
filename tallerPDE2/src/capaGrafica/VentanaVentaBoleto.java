@@ -32,6 +32,7 @@ public class VentanaVentaBoleto extends JFrame {
 	private JTextField edadField;
 	private JTextField numCelularField;
 	private JTextField DescuentoField;
+	private static VentanaVentaBoleto instancia;
 
 	/**
 	 * Launch the application.
@@ -40,7 +41,7 @@ public class VentanaVentaBoleto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaVentaBoleto frame = new VentanaVentaBoleto();
+					VentanaVentaBoleto frame =VentanaVentaBoleto.getInstancia();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,6 +50,14 @@ public class VentanaVentaBoleto extends JFrame {
 		});
 	}
 
+	
+	  // Método estático para obtener la instancia única
+    public static VentanaVentaBoleto getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaVentaBoleto();
+        }
+        return instancia;
+    }
 	/**
 	 * Create the frame.
 	 */
@@ -187,6 +196,7 @@ public class VentanaVentaBoleto extends JFrame {
 	            } catch (Exception ex) {
 	                JOptionPane.showMessageDialog(VentanaVentaBoleto.this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	            }
+	            
 	        }
 	    });
 	    btnVender.setBounds(141, 488, 144, 29);

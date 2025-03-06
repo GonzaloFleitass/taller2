@@ -20,6 +20,8 @@ public class Destinos implements Serializable {
 		Destinos.addLast(Dest);
 
 	}
+	
+	
 
 	public boolean member(String nombre) {
 		Iterator<Destino> iter = Destinos.iterator();
@@ -33,16 +35,7 @@ public class Destinos implements Serializable {
 		return false;
 	}
 
-	public Destino find(String nombre) {
-		Iterator<Destino> iter = Destinos.iterator();
-		while (iter.hasNext()) {
-			Destino destino = iter.next();
-			if (destino.getNombre().equals(nombre)) {
-				return destino;
-			}
-		}
-		return null;
-	}
+
 	
 	
 	

@@ -23,6 +23,8 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
     private JTextField textFieldMatricula;
     private JTable table;
     private ControladorListadoPaseoAsignadosMinivan controlador;
+    private static VentanaListadoPaseosAsignadosMinivan instancia;
+   
 
     /**
      * Launch the application.
@@ -31,7 +33,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    VentanaListadoPaseosAsignadosMinivan frame = new VentanaListadoPaseosAsignadosMinivan();
+                    VentanaListadoPaseosAsignadosMinivan frame = VentanaListadoPaseosAsignadosMinivan.getInstancia();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -40,16 +42,34 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
         });
     }
 
+    
     /**
      * Create the frame.
      */
+    private VentanaListadoPaseosAsignadosMinivan() {
+        configurarVentana();
+        controlador = new ControladorListadoPaseoAsignadosMinivan(this);
+        inicializarComponentes();
+       
+    } 
+    // Método estático para obtener la instancia única
+    public static VentanaListadoPaseosAsignadosMinivan getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaListadoPaseosAsignadosMinivan();
+        }
+        return instancia;
+    }
     
-    public VentanaListadoPaseosAsignadosMinivan() {
-        setTitle("Listado de Paseos Asignados a Minivan");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
-        setLocationRelativeTo(null);
-
+    
+    
+    private void configurarVentana() {
+        setTitle("Listado de paseos por minivan");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
+        setSize(800, 600);
+        setLocationRelativeTo(null); // Centrar en pantalla
+    }
+        
+    private void inicializarComponentes() {
         contentPane = new JPanel();
         contentPane.setBackground(UIManager.getColor("List.background"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,8 +115,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
         scrollPane.setBounds(23, 76, 749, 464);
         contentPane.add(scrollPane);
 
-        // Asociamos el controlador
-        controlador = new ControladorListadoPaseoAsignadosMinivan(this);
+       
     }
 
     /**
@@ -111,7 +130,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
                 return;
             }
 
-            // Obtener la lista de paseos desde el controladordad
+            // Obtener la lista de paseos desde el controladorda
             LinkedList<VOPaseo> listaPaseos = controlador.ListarPasPorMini(matricula);
 
             if (listaPaseos.isEmpty()) {

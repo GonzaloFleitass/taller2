@@ -2,130 +2,128 @@ package capaGrafica;
 
 import java.awt.EventQueue;
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-import javax.swing.JButton;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import capaLogica.minivanes.VoMinivan;
-
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 public class VentanaListadoMinivanes extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private ControladorListadoMinivanes controladorListadoMinivanes; // Instancia del controlador
+    private static VentanaListadoMinivanes instancia; // Instancia única (Singleton)
+    private JTable table;
+    private ControladorListadoMinivanes controladorListadoMinivanes;
 
-	/**
-	 * Launch the 
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaListadoMinivanes frame = new VentanaListadoMinivanes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		
-			
-		});
-	}
+    // Constructor privado para evitar instanciación directa
+    private VentanaListadoMinivanes() {
+        configurarVentana();
+        inicializarComponentes();
+        // Inicializar controlador
+        controladorListadoMinivanes = new ControladorListadoMinivanes(this);
+        cargarListadoMinivanes(); // Cargar datos al iniciar
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaListadoMinivanes() {
-		setTitle("LISTADO");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600); // Ajustar el tamaño inicial de la ventana
-		contentPane = new JPanel();
-		contentPane.setBackground(UIManager.getColor("Menu.background"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		 setLocationRelativeTo(null);
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
+    // Método estático para obtener la instancia única
+    public static VentanaListadoMinivanes getInstancia() {
+        if (instancia == null) {
+            instancia = new VentanaListadoMinivanes();
+        }
+        return instancia;
+    }
 
-		// Título centrado
-		JPanel panelTitulo = new JPanel();
-		contentPane.add(panelTitulo, BorderLayout.NORTH);
-		JLabel lblNewLabel = new JLabel("Listado general de minivanes");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
-		panelTitulo.add(lblNewLabel);
+    // Configuración básica de la ventana
+    private void configurarVentana() {
+        setTitle("Listado General de Minivanes");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
+        setSize(800, 600);
+        setLocationRelativeTo(null); // Centrar en pantalla
+    }
 
-		// Botón "Volver" centrado
-		JPanel panelBoton = new JPanel();
-		contentPane.add(panelBoton, BorderLayout.WEST);
-		JButton Cancelar = new JButton("Cancelar");
-		Cancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// agregar la acción para volver a la ventana principal
-				dispose();
-			}
-		});
-		panelBoton.add(Cancelar);
+    // Inicialización de componentes
+    private void inicializarComponentes() {
+        JPanel contentPane = new JPanel();
+        contentPane.setBackground(UIManager.getColor("Menu.background"));
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contentPane.setLayout(new BorderLayout(10, 10));
+        setContentPane(contentPane);
 
-		// Tabla centrada con scroll
-		JPanel panelTabla = new JPanel();
-		contentPane.add(panelTabla, BorderLayout.CENTER);
-		panelTabla.setLayout(new BorderLayout());
-		table = new JTable();
-		JScrollPane scrollPane = new JScrollPane(table);
-		panelTabla.add(scrollPane, BorderLayout.CENTER);
-		
-		controladorListadoMinivanes = new ControladorListadoMinivanes(this); // Inicializar el controlador
-		cargarListadoMinivanes(); // Cargar el listado al iniciar la ventana
-	}
+        // Título
+        JLabel lblTitulo = new JLabel("Listado general de minivanes");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        JPanel panelTitulo = new JPanel();
+        panelTitulo.add(lblTitulo);
+        contentPane.add(panelTitulo, BorderLayout.NORTH);
 
-	public void cargarListadoMinivanes() {
-		try {
-			LinkedList<VoMinivan> listadoMinivanes = controladorListadoMinivanes.ListarMini();
-			if (listadoMinivanes != null) {
-				mostrarListadoEnTabla(listadoMinivanes);
-			} else {
-				System.out.println("No se encontraron minivanes o hubo un error al obtener el listado.");
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
-			System.out.println("Error de conexión RMI al obtener el listado de minivanes.");
-		}
-	}
+        // Botón Cancelar
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(e -> dispose());
+        JPanel panelBoton = new JPanel();
+        panelBoton.add(btnCancelar);
+        contentPane.add(panelBoton, BorderLayout.SOUTH);
 
-	private void mostrarListadoEnTabla(LinkedList<VoMinivan> listadoMinivanes) {
-		DefaultTableModel model = new DefaultTableModel() {
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        // Todas las celdas no son editables
-		        return false;
-		    }
-		};
-		model.addColumn("Matrícula");
-		model.addColumn("Marca");
-		model.addColumn("Modelo");
-		model.addColumn("Asientos");
-		model.addColumn("Paseos Asignados");
+        // Tabla con ScrollPane
+        table = new JTable();
+        JScrollPane scrollPane = new JScrollPane(table);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+    }
 
-		for (VoMinivan minivan : listadoMinivanes) {
-			model.addRow(new Object[] {
-					minivan.getMatricula(),
-					minivan.getMarca(),
-					minivan.getModelo(),
-					minivan.getcantAsientos(),
-					minivan.getcantPaseos()
-			});
-		}
-		table.setModel(model);
-	}
+    // Cargar listado de minivanes
+    public void cargarListadoMinivanes() {
+        try {
+            LinkedList<VoMinivan> listadoMinivanes = controladorListadoMinivanes.ListarMini();
+            if (listadoMinivanes != null && !listadoMinivanes.isEmpty()) {
+                mostrarListadoEnTabla(listadoMinivanes);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontraron minivanes registradas.", 
+                    "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (RemoteException e) {
+            JOptionPane.showMessageDialog(this, "Error de conexión al obtener el listado.", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    // Mostrar datos en la tabla
+    private void mostrarListadoEnTabla(LinkedList<VoMinivan> listadoMinivanes) {
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Tabla no editable
+            }
+        };
+
+        model.addColumn("Matrícula");
+        model.addColumn("Marca");
+        model.addColumn("Modelo");
+        model.addColumn("Asientos");
+        model.addColumn("Paseos Asignados");
+
+        for (VoMinivan minivan : listadoMinivanes) {
+            model.addRow(new Object[]{
+                minivan.getMatricula(),
+                minivan.getMarca(),
+                minivan.getModelo(),
+                minivan.getcantAsientos(),
+                minivan.getcantPaseos()
+            });
+        }
+
+        table.setModel(model);
+    }
+
+    // Método principal para pruebas
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                VentanaListadoMinivanes frame = VentanaListadoMinivanes.getInstancia();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

@@ -27,6 +27,7 @@ public class Servidor {
             // Crear la instancia de la fachada
             Ifachada fach = new fachada();
           
+            
             try {
     			fach.recuperar();
     		} catch (FileNotFoundException e) {
@@ -39,6 +40,7 @@ public class Servidor {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
+          
 	
             // eso hace que quede publicado
             Naming.rebind("//localhost:" + puerto + "/fachada", fach);

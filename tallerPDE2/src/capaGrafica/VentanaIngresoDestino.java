@@ -5,42 +5,38 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-
 import capaLogica.destinos.DestinoException;
 
 public class VentanaIngresoDestino extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JTextField textField;
+    private static VentanaIngresoDestino instancia; // Instancia única (Singleton)
+    private JTextField textField; // Campo de texto para el nombre del destino
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    VentanaIngresoDestino frame = new VentanaIngresoDestino();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    // Constructor privado para evitar instanciación directa
+    private VentanaIngresoDestino() throws RemoteException {
+        configurarVentana();
+        inicializarComponentes();
     }
 
-    /**
-     * Create the frame.
-     * @throws RemoteException 
-     */
-    public VentanaIngresoDestino() throws RemoteException {
-        // Configuración básica de la ventana
+    // Método estático para obtener la instancia única
+    public static VentanaIngresoDestino getInstancia() throws RemoteException {
+        if (instancia == null) {
+            instancia = new VentanaIngresoDestino();
+        }
+        return instancia;
+    }
+
+    // Configuración básica de la ventana
+    private void configurarVentana() {
         setTitle("Ingreso de Destino");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
         setSize(500, 300);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+    }
 
-        // Panel principal
+    // Inicialización de los componentes de la ventana
+    private void inicializarComponentes() {
+        // Panel principal con GridLayout
         JPanel contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Márgenes
         contentPane.setLayout(new GridLayout(4, 1, 10, 10)); // 4 filas, 1 columna, espacio entre componentes
@@ -85,13 +81,27 @@ public class VentanaIngresoDestino extends JFrame {
         contentPane.add(btnIngresar);
 
         // Botón Cancelar
-        JButton Cancelar = new JButton("Cancelar");
-        Cancelar.addActionListener(new ActionListener() {
+        JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Cierra la ventana
             }
         });
-        contentPane.add(Cancelar);
+        contentPane.add(btnCancelar);
+    }
+
+    // Método principal para probar la ventana
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    VentanaIngresoDestino frame = VentanaIngresoDestino.getInstancia(); // Obtener la instancia
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
