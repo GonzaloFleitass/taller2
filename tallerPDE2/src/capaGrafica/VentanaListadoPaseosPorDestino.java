@@ -62,7 +62,7 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null); // Centrar en pantalla
         contentPane = new JPanel();
-        contentPane.setBackground(UIManager.getColor("Panel.background"));
+        contentPane.setBackground(UIManager.getColor("textHighlight"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);

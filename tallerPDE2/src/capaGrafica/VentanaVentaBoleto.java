@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-
+import capaLogica.paseos.paseoException;
 public class VentanaVentaBoleto extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -153,7 +153,11 @@ public class VentanaVentaBoleto extends JFrame {
 	                String numCelularStr = numCelularField.getText().trim();
 	                char tipoBoleto = TipBoleto.isSelected() ? 'E' : 'C';
 	                String descuentoStr = DescuentoField.getText().trim();
-	                
+	                codigoPaseoField.setText("");
+	                nombreField.setText("");
+	                edadField.setText("");
+	                numCelularField.setText("");
+	                TipBoleto.setSelected(false);
 	                // Validación de campos
 	                if (codigoPaseo.isEmpty() || nombre.isEmpty() || edadStr.isEmpty() || numCelularStr.isEmpty()) {
 	                    JOptionPane.showMessageDialog(VentanaVentaBoleto.this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -189,10 +193,14 @@ public class VentanaVentaBoleto extends JFrame {
 	                    }
 	                }
 	                
-	                ControladorVentaBoleto controlador = new ControladorVentaBoleto(VentanaVentaBoleto.this);	  
+	                
+	                ControladorVentaBoleto controlador = new ControladorVentaBoleto(VentanaVentaBoleto.this);	
+	                try {
 	                controlador.VentBol(codigoPaseo, nombre, edad, numeroCelular, codigoPaseo, descuento, tipoBoleto);
 	                JOptionPane.showMessageDialog(VentanaVentaBoleto.this, "Boleto vendido con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-	                
+	                }catch(paseoException e1) {
+	                JOptionPane.showMessageDialog(VentanaVentaBoleto.this, e1.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
+	            }
 	            } catch (Exception ex) {
 	                JOptionPane.showMessageDialog(VentanaVentaBoleto.this, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	            }

@@ -71,7 +71,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
         
     private void inicializarComponentes() {
         contentPane = new JPanel();
-        contentPane.setBackground(UIManager.getColor("List.background"));
+        contentPane.setBackground(UIManager.getColor("textHighlight"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);

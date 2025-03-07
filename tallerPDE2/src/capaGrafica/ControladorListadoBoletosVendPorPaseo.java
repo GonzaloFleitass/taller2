@@ -27,17 +27,16 @@ public class ControladorListadoBoletosVendPorPaseo {
 		    }
 
 	
-public LinkedList<VOBoleto> ListarBolVenPas(String codigo, char tipoBoleto)throws RemoteException,paseoException{
-	try {
-    	
-      return  fach.listarBoletosPorPaseo(codigo, tipoBoleto);
-        
-       
-    } catch (Exception e) {
-        e.printStackTrace();
-        return new LinkedList<>();  // Devuelve una lista vacía en caso de error
-    	}
-
+	public LinkedList<VOBoleto> ListarBolVenPas(String codigo, char tipoBoleto) throws RemoteException, paseoException {
+	    try {
+	        return fach.listarBoletosPorPaseo(codigo, tipoBoleto);
+	    } catch (paseoException e) {
+	        throw e; // Relanza la excepción para que pueda ser capturada en btnBuscar
+	    } catch (RemoteException e) {
+	        throw e; // Relanza RemoteException
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        throw new paseoException("Ocurrió un error inesperado al listar los boletos."); // Lanza una excepción personalizada
+	    }
 	}
-
 }

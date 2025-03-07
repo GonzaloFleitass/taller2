@@ -30,6 +30,16 @@ public class ControladorRespaldar {
 		 e.printStackTrace();
 	}
 }
+	
+	public void recuperar() throws PersistenciaException, RemoteException{
+		try {
+			fach.recuperar();
+		}catch(PersistenciaException e) {
+			throw e;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 

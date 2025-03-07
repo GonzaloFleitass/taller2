@@ -48,7 +48,7 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
     private void inicializarComponentes() {
         // Panel principal con GridLayout
         JPanel contentPane = new JPanel();
-        contentPane.setBackground(UIManager.getColor("Menu.background"));
+        contentPane.setBackground(UIManager.getColor("textHighlight"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         setContentPane(contentPane);
@@ -87,6 +87,8 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String codigo = textFieldCodigo.getText().trim();
+                    textFieldCodigo.setText("");
+               
                     if (codigo.isEmpty()) {
                         JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "Por favor ingrese un código de paseo.", 
                                 "Error", JOptionPane.ERROR_MESSAGE);
@@ -94,7 +96,7 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
                     }
 
                     char tipoBoleto = TipoBoleto.isSelected() ? 'E' : 'C'; // 'E' para especial, 'C' para común
-
+                    TipoBoleto.setText("");
                     // Obtener la lista de boletos desde el controlador
                     LinkedList<VOBoleto> listaBoletos = controlador.ListarBolVenPas(codigo, tipoBoleto);
                     if (listaBoletos.isEmpty()) {
@@ -104,10 +106,16 @@ public class VentanaListadoBoletosVendPorPaseo extends JFrame {
                         mostrarBoletosEnTabla(listaBoletos);
                     }
 
-                } catch (RemoteException | paseoException ex) {
-                    ex.printStackTrace();
+                } catch (paseoException ex) { 
+                    JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, ex.darMensaje(), 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (RemoteException ex) {
                     JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "Error de conexión al obtener el listado de boletos.", 
                             "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) { // Captura cualquier otra excepción no prevista
+                    JOptionPane.showMessageDialog(VentanaListadoBoletosVendPorPaseo.this, "Ocurrió un error inesperado.", 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
             }
         });

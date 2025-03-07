@@ -9,6 +9,7 @@ import capaLogica.paseos.paseoException;
 
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -91,12 +92,13 @@ public class VentanaMontoRecaudado extends JFrame {
                     textField_1.setText(String.valueOf(monto)); // Convierte el valor double a String
                     
                 } catch (paseoException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog( VentanaMontoRecaudado.this, ex.darMensaje(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (RemoteException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(VentanaMontoRecaudado.this, "Error de conexión: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
 
         Buscar.setBounds(510, 45, 117, 29);
         contentPane.add(Buscar);

@@ -54,6 +54,7 @@ public class VentanaListadoMinivanes extends JFrame {
         JLabel lblTitulo = new JLabel("Listado general de minivanes");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         JPanel panelTitulo = new JPanel();
+        panelTitulo.setBackground(UIManager.getColor("textHighlight"));
         panelTitulo.add(lblTitulo);
         contentPane.add(panelTitulo, BorderLayout.NORTH);
 
@@ -61,6 +62,7 @@ public class VentanaListadoMinivanes extends JFrame {
         JButton btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(e -> dispose());
         JPanel panelBoton = new JPanel();
+        panelBoton.setBackground(UIManager.getColor("textHighlight"));
         panelBoton.add(btnCancelar);
         contentPane.add(panelBoton, BorderLayout.SOUTH);
 
@@ -126,4 +128,13 @@ public class VentanaListadoMinivanes extends JFrame {
             }
         });
     }
+    
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            cargarListadoMinivanes(); // Recarga los datos cada vez que se muestra la ventana
+        }
+        super.setVisible(visible);
+    }
+
 }

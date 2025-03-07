@@ -109,11 +109,13 @@ public class VentanaIngresoPaseo extends JFrame {
         lblHoraLlegada.setBounds(166, 294, 100, 16);
         contentPane.add(lblHoraLlegada);
 
+      
         horaLlegada = new JFormattedTextField(formatter);
         horaLlegada.setBounds(316, 289, 130, 26);
         horaLlegada.setText(horaActual.plusMinutes(60).format(formatter));
         contentPane.add(horaLlegada);
 
+        
         // Precio
         JLabel lblPrecio = new JLabel("Precio");
         lblPrecio.setBounds(166, 371, 61, 16);
@@ -130,7 +132,7 @@ public class VentanaIngresoPaseo extends JFrame {
                 try {
                     // Obtenemos los datos de los campos
                     String cod = codPaseo.getText().trim();
-
+                    codPaseo.setText("");
                     // Verificamos si el código está vacío
                     if (cod.isEmpty()) {
                         JOptionPane.showMessageDialog(VentanaIngresoPaseo.this, "El código de paseo no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -145,7 +147,7 @@ public class VentanaIngresoPaseo extends JFrame {
 
                     // Creamos el destino seleccionado
                     Destino destino = new Destino((String) comboDestino.getSelectedItem());
-
+                    
                     // Verificamos que las horas no sean nulas
                     if (horaPartida.getValue() == null || horaLlegada.getValue() == null) {
                         JOptionPane.showMessageDialog(VentanaIngresoPaseo.this, "Hora de partida y llegada deben ser válidas.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -155,11 +157,14 @@ public class VentanaIngresoPaseo extends JFrame {
                     // Convertimos las horas a LocalTime
                     LocalTime horaPartidaLocal = LocalTime.parse(horaPartida.getText());
                     LocalTime horaLlegadaLocal = LocalTime.parse(horaLlegada.getText());
+                    horaPartida.setText(horaActual.format(formatter));
+                    horaLlegada.setText(horaActual.plusMinutes(60).format(formatter));
 
                     // Verificamos el precio
                     double precioBase = 0;
                     try {
                         precioBase = Double.parseDouble(precio.getText());
+                        precio.setText("");
                         if (precioBase <= 0) {
                             JOptionPane.showMessageDialog(VentanaIngresoPaseo.this, "El precio debe ser mayor a cero.", "Error", JOptionPane.ERROR_MESSAGE);
                             return;

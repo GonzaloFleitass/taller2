@@ -38,17 +38,21 @@ public class VentanaIngresoDestino extends JFrame {
     private void inicializarComponentes() {
         // Panel principal con GridLayout
         JPanel contentPane = new JPanel();
-        contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Márgenes
-        contentPane.setLayout(new GridLayout(4, 1, 10, 10)); // 4 filas, 1 columna, espacio entre componentes
+        contentPane.setBackground(UIManager.getColor("Menu.background"));
+        contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setContentPane(contentPane);
+        contentPane.setLayout(null);
 
         // Título de la ventana
         JLabel lblTitulo = new JLabel("Ingreso de Destino", SwingConstants.CENTER);
+        lblTitulo.setBounds(20, 21, 460, 50);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         contentPane.add(lblTitulo);
 
         // Panel para el campo de texto y su etiqueta
         JPanel panelCampo = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panelCampo.setBackground(UIManager.getColor("Menu.background"));
+        panelCampo.setBounds(20, 100, 460, 50);
         JLabel lblNombre = new JLabel("Nombre del Destino:");
         textField = new JTextField(20); // Campo de texto con 20 columnas
         panelCampo.add(lblNombre);
@@ -57,10 +61,12 @@ public class VentanaIngresoDestino extends JFrame {
 
         // Botón Ingresar
         JButton btnIngresar = new JButton("Ingresar");
+        btnIngresar.setBounds(16, 201, 197, 50);
         btnIngresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String destino = textField.getText().trim();
+                textField.setText("");
                 if (!destino.isEmpty()) {
                     try {
                         ControladorIngresoDestino controladorIngresoDestino = new ControladorIngresoDestino(VentanaIngresoDestino.this);
@@ -82,6 +88,7 @@ public class VentanaIngresoDestino extends JFrame {
 
         // Botón Cancelar
         JButton btnCancelar = new JButton("Cancelar");
+        btnCancelar.setBounds(288, 201, 192, 50);
         btnCancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

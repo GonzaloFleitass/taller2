@@ -47,7 +47,7 @@ public class VentanaListadoDisponibilidadBoletos extends JFrame {
     private void inicializarComponentes() {
         // Panel principal con GridLayout
         JPanel contentPane = new JPanel();
-        contentPane.setBackground(UIManager.getColor("Panel.background"));
+        contentPane.setBackground(UIManager.getColor("textHighlight"));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         setContentPane(contentPane);

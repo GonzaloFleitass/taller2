@@ -91,12 +91,16 @@ public class VentanaIngresoMinivan extends JFrame {
 
         // Botón "Ingresar"
         JButton Ingresar = new JButton("Ingresar");
+        Ingresar.setBackground(UIManager.getColor("textHighlight"));
         Ingresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String matricula = Matricula.getText().trim();
                 String marca = Marca.getText().trim();
                 String modelo = Modelo.getText().trim();
+                Matricula.setText("");
+                Marca.setText("");
+                Modelo.setText("");
 
                 if (matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty()) {
                     JOptionPane.showMessageDialog(VentanaIngresoMinivan.this, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
