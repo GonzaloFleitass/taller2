@@ -34,9 +34,7 @@ public class VentanaVentaBoleto extends JFrame {
 	private JTextField DescuentoField;
 	private static VentanaVentaBoleto instancia;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,9 +56,7 @@ public class VentanaVentaBoleto extends JFrame {
         }
         return instancia;
     }
-	/**
-	 * Create the frame.
-	 */
+	
 	public VentanaVentaBoleto() {
 	    setTitle("Venta");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

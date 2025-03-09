@@ -13,7 +13,7 @@ public class VoMinivan implements Serializable{
 	private int cantAsientos;
 	private int cantPaseos;
 
-	// Constructor para inicializar todos los atributos
+	
 	public VoMinivan(String mat, String marc, String mod, int cantA, int cantPas) {
 		matricula = mat;
 		marca = marc;
@@ -22,7 +22,7 @@ public class VoMinivan implements Serializable{
 		cantPaseos = cantPas;
 	}
 
-	// Métodos para obtener los valores de los atributos
+	
 	public String getMatricula() {
 		return matricula;
 	}

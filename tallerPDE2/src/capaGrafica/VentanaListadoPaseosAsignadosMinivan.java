@@ -26,9 +26,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
     private static VentanaListadoPaseosAsignadosMinivan instancia;
    
 
-    /**
-     * Launch the application.
-     */
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -43,9 +41,7 @@ public class VentanaListadoPaseosAsignadosMinivan extends JFrame {
     }
 
     
-    /**
-     * Create the frame.
-     */
+    
     private VentanaListadoPaseosAsignadosMinivan() {
         configurarVentana();
         controlador = new ControladorListadoPaseoAsignadosMinivan(this);

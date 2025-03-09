@@ -23,7 +23,7 @@ import capaPersistencia.PersistenciaException;
 public interface Ifachada extends Remote {
 
 
-	// Lista las minivanes
+	
 	LinkedList<VoMinivan> listadoMinivanes() throws RemoteException ;
 
 

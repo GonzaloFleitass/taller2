@@ -24,9 +24,8 @@ public class VentanaMontoRecaudado extends JFrame {
     private JTextField textField;
     private JTextField textField_1;
     private static VentanaMontoRecaudado instancia;
-    /**
-     * Launch the application.
-     */
+    
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -59,7 +59,7 @@ public class Paseo implements Serializable {
 		return boletos;
 	}
 
-	// Método setter para la hora de partida
+	
 	// Para usarlo al momento de usar el cabezal debe llenarse así: LocalTime.of(10,
 	// 30) eso sería 10:30
 	public void setHoraPartida(LocalTime horaPartida) {

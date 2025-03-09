@@ -30,7 +30,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 	private Destinos destinos;
 
 	public fachada() throws RemoteException {
-		// TODO Auto-generated constructor stubbsnb
+		
 		paseos = new Paseos();
 		minivanes = new Minivanes();
 		monitor = new Monitor();
@@ -93,7 +93,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 		}
 
 	}
-	// Lista las minivanes
+	
 	@Override
 	public LinkedList<VoMinivan> listadoMinivanes() throws RemoteException {
 		monitor.comienzoLectura();
@@ -128,7 +128,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 
 	}
 
-	// OPCION 2- RETORONA LA LISTA VOPASEOS SEGUN UNA CANTIDAD DE BOLETOS
+	
 	@Override
 	public LinkedList<VOPaseo> listarPaseosDispBoletos(int cantBol) throws boletoException, RemoteException {
 		monitor.comienzoLectura();
@@ -141,7 +141,7 @@ public class fachada extends UnicastRemoteObject implements Ifachada {
 
 	}
 
-	// INGRESA BOLETO A LA COLECCION DE BOLETOS DEL PASEO PASADO POR EL USUARIO
+	
 	@Override
 	public void ventaBoleto(String codigoBol, String nombre, int edad, int celu, String codigoPas, double descuento,
 			char tipoBoleto) throws paseoException, RemoteException {

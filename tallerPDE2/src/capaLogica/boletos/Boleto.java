@@ -19,7 +19,7 @@ public class Boleto implements Serializable {
 
 	}
 
-	// Métodos getter para obtener los atributos de Boleto
+	
 	public int getNumBoleto() {
 		return numBol;
 	}

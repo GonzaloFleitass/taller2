@@ -82,7 +82,7 @@ public class VentanaMenuPrincipal extends JFrame {
         mnNewMenu.add(mntmNewMenuItem);
 
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("Recuperar");
-        mntmNewMenuItem_1.addActionListener(new ActionListener() {  // Aquí está la corrección
+        mntmNewMenuItem_1.addActionListener(new ActionListener() {  
             public void actionPerformed(ActionEvent e) {
                 try {
                     controladorRespaldar.recuperar();
