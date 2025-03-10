@@ -164,5 +164,13 @@ public class VentanaListadoPaseosPorDestino extends JFrame {
         }
         table.setModel(model);
     }
+    
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            cargarDestinos(); // Recarga los datos cada vez que se muestra la ventana
+        }
+        super.setVisible(visible);
+    }
 }
 
