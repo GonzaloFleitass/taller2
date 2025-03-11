@@ -58,20 +58,9 @@ public class Cliente {
                 fach.insertPaseo(codigoPaseo, destino, horaSalida, horaLlegada, precio);
             }
 
-            // Listar minivans
-            System.out.println("=== Listado de Minivans ===");
-            LinkedList<VoMinivan> minivanesList = fach.listadoMinivanes();
-            for (VoMinivan mini : minivanesList) {
-                mini.printVOMinivan();
-            }
+         
 
-            // Listar paseos con boletos disponibles
-            System.out.println("\n=== Listado de Paseos con Boletos Disponibles ===");
-            LinkedList<VOPaseo> paseosDisponibles = fach.listarPaseosDispBoletos(1);
-            for (VOPaseo paseo : paseosDisponibles) {
-                paseo.printVOPaseo();
-            }
-
+          
             // Vender 600 boletos
             System.out.println("\n=== Venta de Boletos ===");
             for (int i = 0; i < 600; i++) {

@@ -38,18 +38,7 @@ public class Boletos implements Serializable {
 
 	}
 
-	// Eliminar un boleto del arreglo
-	public void delete(Boleto boleto) {
-		for (int i = 0; i < tope; i++) {
-			if (boletos[i].equals(boleto)) {
-				boletos[i] = boletos[tope - 1];
-				boletos[tope - 1] = null;
-				tope--;
-				return;
-			}
-		}
-		System.out.println("Boleto no encontrado.");
-	}
+	
 
 	// Registrar la venta de un boleto
 	public void ventaBoleto(int numero, String nombre, int edad, int celular, String codigo) {

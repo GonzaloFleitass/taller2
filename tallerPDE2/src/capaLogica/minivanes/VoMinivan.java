@@ -43,9 +43,5 @@ public class VoMinivan implements Serializable{
 		return cantPaseos;
 	}
 
-	// Método para imprimir la información de la minivan de forma legible
-	public void printVOMinivan() {
-		System.out.println("Matricula: " + matricula + "\n" + "Marca: " + marca + "\n" + "Modelo: " + modelo + "\n"
-				+ "Cantidad de asientos: " + cantAsientos + "\n" + "Cantidad de paseos: " + cantPaseos);
-	}
+
 }

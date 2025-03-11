@@ -57,11 +57,6 @@ public class VOPaseo implements Serializable {
 		return cantBolDisp;
 	}
 
-	// Método que imprime la información completa del paseo
-	public void printVOPaseo() {
-		System.out.println("Codigo: " + codigo + "\n" + "Destino: " + destino + "\n" + "Hora de Partida: " + horaPartida
-				+ "\n" + "Hora de Llegada: " + horaLlegada + "\n" + "Precio Base: " + precioBase + "\n"
-				+ "Cantidad maxima de boletos: " + cantMaximaBoletos + "\n" + "Boletos Disponibles: " + cantBolDisp);
+	
 
-	}
 }
