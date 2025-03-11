@@ -63,7 +63,7 @@ public class VentanaMenuPrincipal extends JFrame {
         menuBar.setBackground(UIManager.getColor("textHighlight"));
         getContentPane().add(menuBar, BorderLayout.NORTH);
 
-        JMenu mnNewMenu = new JMenu("Archivo");
+        JMenu mnNewMenu = new JMenu("Archivos");
         menuBar.add(mnNewMenu);
         ControladorRespaldar controladorRespaldar = new ControladorRespaldar(VentanaMenuPrincipal.this);
        
@@ -93,6 +93,22 @@ public class VentanaMenuPrincipal extends JFrame {
             }
         });
         mnNewMenu.add(mntmNewMenuItem_1);
+        
+        JMenu mnNewMenu_1 = new JMenu("Ayuda");
+        menuBar.add(mnNewMenu_1);
+        
+        JMenuItem mntmNewMenuItem_2 = new JMenuItem("Sobre nosotros");
+        mntmNewMenuItem_2.addActionListener(e -> {
+			try {
+				abrirVentana(VentanaAbout.getInstancia());
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+
+
+        mnNewMenu_1.add(mntmNewMenuItem_2);
 
         panelBotones.add(btnIngresoDestino);
         panelBotones.add(btnIngresoMinivan);
